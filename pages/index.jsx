@@ -251,6 +251,63 @@ const footerNavigation = {
   ],
 };
 
+function InputField({ label, type = "input", name, id, placeholder = "" }) {
+  return (
+    <div className="flex items-center mr-2">
+      <label
+        htmlFor={label}
+        className="block text-sm font-medium text-gray-700 mr-2"
+      >
+        {label}
+      </label>
+      <div className="mt-1">
+        <input
+          type={type}
+          name={name}
+          id={id}
+          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+          placeholder={placeholder}
+        />
+      </div>
+    </div>
+  );
+}
+
+function SearchInput() {
+  return (
+    <div className="bg-white shadow sm:rounded-lg">
+      <div className="px-4 py-5 sm:p-6">
+        <div className="flex justify-center">
+          <div className="flex items-center justify-around">
+            <InputField label="Studio Type" name="type" id="type" />
+            <InputField
+              label="Location"
+              name="location"
+              id="location"
+              placeholder="Where are you booking?"
+            />
+            <InputField
+              label="Date"
+              name="date"
+              id="date"
+              type="date"
+              placeholder="When are you booking?"
+            />
+          </div>
+          <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
+            <button
+              type="button"
+              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            >
+              Find a space
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -825,12 +882,12 @@ export default function Example() {
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="py-24 text-center">
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
-                New Arrivals
+                Stayges
               </h1>
               <p className="mt-4 max-w-3xl mx-auto text-base text-gray-500">
-                Thoughtfully designed objects for the workspace, home, and
-                travel.
+                Book practice spaces cheaper for just 1 hour
               </p>
+              <SearchInput />
             </div>
 
             {/* Filters */}
