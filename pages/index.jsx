@@ -110,7 +110,7 @@ const listings = [
     description:
       "Full soundproofing and no neighbors. You can play as loud as you want!",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-07.jpg",
+      "https://github.com/ma8642/stayges/blob/main/images/music_2.jpeg?raw=true",
   },
   {
     id: 5,
