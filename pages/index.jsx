@@ -82,7 +82,7 @@ const listings = [
     price: "$25",
     description: "Incudes yoga ball, mat, blocks, and straps. AC/heating.",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-01.jpg",
+      "https://github.com/ma8642/stayges/blob/main/images/yoga_3.jpeg?raw=true",
   },
   {
     id: 2,
@@ -91,7 +91,7 @@ const listings = [
     price: "$50",
     description: "Good for practicing your next routine or filming a tik tok",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-02.jpg",
+      "https://github.com/ma8642/stayges/blob/main/images/dance_3.png?raw=true",
   },
   {
     id: 3,
@@ -100,7 +100,7 @@ const listings = [
     price: "$40",
     description: "Please clean equipment before you leave.",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-03.jpg",
+      "https://github.com/ma8642/stayges/blob/main/images/gym_and_yoga.jpg?raw=true",
   },
   {
     id: 4,
@@ -120,7 +120,7 @@ const listings = [
     description:
       "Includes chrome spin/static pole, silks, and lyra hoop. Please don't wear lotion or jewelry. Please use earbuds for music.",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-08.jpg",
+      "https://github.com/ma8642/stayges/blob/main/images/poledoctor_1.jpeg?raw=true",
   },
   {
     id: 6,
@@ -129,7 +129,7 @@ const listings = [
     price: "$38",
     description: "Baby grand steinway in private room.",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-09.jpg",
+      "https://github.com/ma8642/stayges/blob/main/images/music_1.png?raw=true",
   },
 ];
 const footerNavigation = {
