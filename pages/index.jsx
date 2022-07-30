@@ -1,267 +1,141 @@
 import { Fragment, useState } from "react";
 import {
   Dialog,
+  Disclosure,
+  Menu,
   Popover,
-  RadioGroup,
   Tab,
   Transition,
 } from "@headlessui/react";
 import {
-  CurrencyDollarIcon,
-  GlobeIcon,
   MenuIcon,
-  SearchIcon,
+  QuestionMarkCircleIcon,
   ShoppingBagIcon,
-  UserIcon,
   XIcon,
 } from "@heroicons/react/outline";
-import { StarIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 
 const navigation = {
   categories: [
     {
-      id: "women",
-      name: "Women",
-      featured: [
-        {
-          name: "New Arrivals",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
-          imageAlt:
-            "Models sitting back to back, wearing Basic Tee in black and bone.",
-        },
-        {
-          name: "Basic Tees",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
-          imageAlt:
-            "Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.",
-        },
-        {
-          name: "Accessories",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-03.jpg",
-          imageAlt:
-            "Model wearing minimalist watch with black wristband and white watch face.",
-        },
-      ],
-      sections: [
-        [
-          {
-            id: "shoes",
-            name: "Shoes & Accessories",
-            items: [
-              { name: "Sneakers", href: "#" },
-              { name: "Boots", href: "#" },
-              { name: "Flats", href: "#" },
-              { name: "Sandals", href: "#" },
-              { name: "Heels", href: "#" },
-              { name: "Socks", href: "#" },
-            ],
-          },
-          {
-            id: "collection",
-            name: "Shop Collection",
-            items: [
-              { name: "Everything", href: "#" },
-              { name: "Core", href: "#" },
-              { name: "New Arrivals", href: "#" },
-              { name: "Sale", href: "#" },
-              { name: "Accessories", href: "#" },
-            ],
-          },
-        ],
-        [
-          {
-            id: "clothing",
-            name: "All Clothing",
-            items: [
-              { name: "Basic Tees", href: "#" },
-              { name: "Artwork Tees", href: "#" },
-              { name: "Tops", href: "#" },
-              { name: "Bottoms", href: "#" },
-              { name: "Swimwear", href: "#" },
-              { name: "Underwear", href: "#" },
-            ],
-          },
-          {
-            id: "accessories",
-            name: "All Accessories",
-            items: [
-              { name: "Watches", href: "#" },
-              { name: "Wallets", href: "#" },
-              { name: "Bags", href: "#" },
-              { name: "Sunglasses", href: "#" },
-              { name: "Hats", href: "#" },
-              { name: "Belts", href: "#" },
-            ],
-          },
-        ],
-        [
-          {
-            id: "brands",
-            name: "Brands",
-            items: [
-              { name: "Full Nelson", href: "#" },
-              { name: "My Way", href: "#" },
-              { name: "Re-Arranged", href: "#" },
-              { name: "Counterfeit", href: "#" },
-              { name: "Significant Other", href: "#" },
-            ],
-          },
-        ],
-      ],
+      name: "Home",
+      href: "#",
     },
     {
-      id: "men",
-      name: "Men",
-      featured: [
-        {
-          name: "Accessories",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg",
-          imageAlt:
-            "Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters.",
-        },
-        {
-          name: "New Arrivals",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg",
-          imageAlt:
-            "Drawstring top with elastic loop closure and textured interior padding.",
-        },
-        {
-          name: "Artwork Tees",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg",
-          imageAlt:
-            "Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.",
-        },
-      ],
-      sections: [
-        [
-          {
-            id: "shoes",
-            name: "Shoes & Accessories",
-            items: [
-              { name: "Sneakers", href: "#" },
-              { name: "Boots", href: "#" },
-              { name: "Sandals", href: "#" },
-              { name: "Socks", href: "#" },
-            ],
-          },
-          {
-            id: "collection",
-            name: "Shop Collection",
-            items: [
-              { name: "Everything", href: "#" },
-              { name: "Core", href: "#" },
-              { name: "New Arrivals", href: "#" },
-              { name: "Sale", href: "#" },
-            ],
-          },
-        ],
-        [
-          {
-            id: "clothing",
-            name: "All Clothing",
-            items: [
-              { name: "Basic Tees", href: "#" },
-              { name: "Artwork Tees", href: "#" },
-              { name: "Pants", href: "#" },
-              { name: "Hoodies", href: "#" },
-              { name: "Swimsuits", href: "#" },
-            ],
-          },
-          {
-            id: "accessories",
-            name: "All Accessories",
-            items: [
-              { name: "Watches", href: "#" },
-              { name: "Wallets", href: "#" },
-              { name: "Bags", href: "#" },
-              { name: "Sunglasses", href: "#" },
-              { name: "Hats", href: "#" },
-              { name: "Belts", href: "#" },
-            ],
-          },
-        ],
-        [
-          {
-            id: "brands",
-            name: "Brands",
-            items: [
-              { name: "Re-Arranged", href: "#" },
-              { name: "Counterfeit", href: "#" },
-              { name: "Full Nelson", href: "#" },
-              { name: "My Way", href: "#" },
-            ],
-          },
-        ],
-      ],
+      name: "About",
+      href: "#",
     },
   ],
   pages: [
-    { name: "Company", href: "#" },
-    { name: "Stores", href: "#" },
+    { name: "Features", href: "#" },
+    { name: "Content", href: "#" },
   ],
 };
-const product = {
-  name: "Basic Tee",
-  price: "$35",
-  href: "#",
-  images: [
-    {
-      id: 1,
-      imageSrc:
-        "https://github.com/ma8642/stayges/blob/main/images/yoga_3.jpeg?raw=true",
-      imageAlt: "Back of women's Basic Tee in black.",
-      primary: true,
-    },
-    {
-      id: 2,
-      imageSrc:
-        "https://github.com/ma8642/stayges/blob/main/images/yoga_3.jpeg?raw=true",
-      imageAlt: "Side profile of women's Basic Tee in black.",
-      primary: false,
-    },
-    {
-      id: 3,
-      imageSrc:
-        "https://github.com/ma8642/stayges/blob/main/images/yoga_3.jpeg?raw=true",
-      imageAlt: "Front of women's Basic Tee in black.",
-      primary: false,
-    },
-  ],
-  description: `
-    <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
-    <p>Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.</p>
-  `,
-  rules: ["no smoking", "no alcohol", "no food", "no shoes", "up to 2 guests"],
-};
-const policies = [
+const sortOptions = [
+  { name: "Most Popular", href: "#" },
+  { name: "Best Rating", href: "#" },
+  { name: "Newest", href: "#" },
+  { name: "Price: Low to High", href: "#" },
+  { name: "Price: High to Low", href: "#" },
+];
+const filters = [
   {
-    name: "International delivery",
-    icon: GlobeIcon,
-    description: "Get your order in 2 years",
+    // TODO make this conditionally generated based on type of studio chosen
+    id: "amenities",
+    name: "Amenities",
+    options: [
+      { value: "mirrors", label: "Mirrors" },
+      { value: "fall-mats", label: "Fall Mats" },
+      { value: "hardwood-floors", label: "Hardwood Floors" },
+      { value: "vinyl-marley-floors", label: "Marley Flooring" },
+      { value: "sound-proof", label: "Soundproof" },
+      { value: "pole", label: "Pole" },
+      { value: "barre", label: "Barre" },
+      { value: "silks", label: "Silks" },
+      { value: "lyra", label: "Lyra" },
+      { value: "lighting", label: "Lighting" },
+      { value: "piano", label: "Piano" },
+      { value: "yoga-mat", label: "Yoga Mat" },
+    ],
   },
   {
-    name: "Loyalty rewards",
-    icon: CurrencyDollarIcon,
-    description: "Don't look at other tees",
+    id: "privacy",
+    name: "Privacy",
+    options: [
+      { value: "room", label: "Room" },
+      { value: "whole-building", label: "Whole Building" },
+    ],
+  },
+  {
+    id: "usage",
+    name: "Usage",
+    options: [
+      { value: "equipment-included", label: "Equipment Included" },
+      { value: "space-only", label: "Space Only" },
+    ],
   },
 ];
-
+const listings = [
+  {
+    id: 1,
+    name: "Sunny Yoga Room with private entrance",
+    href: "listings/1",
+    price: "$25",
+    description: "Incudes yoga ball, mat, blocks, and straps. AC/heating.",
+    imageSrc:
+      "https://github.com/ma8642/stayges/blob/main/images/yoga_3.jpeg?raw=true",
+  },
+  {
+    id: 2,
+    name: "Clean dance studio with surround sound",
+    href: "listings/2",
+    price: "$50",
+    description: "Good for practicing your next routine or filming a tik tok",
+    imageSrc:
+      "https://github.com/ma8642/stayges/blob/main/images/dance_3.png?raw=true",
+  },
+  {
+    id: 3,
+    name: "Private Gym with Yoga Equipment",
+    href: "listings/3",
+    price: "$40",
+    description: "Please clean equipment before you leave.",
+    imageSrc:
+      "https://github.com/ma8642/stayges/blob/main/images/gym_and_yoga.jpg?raw=true",
+  },
+  {
+    id: 4,
+    name: "Music Practice Room - Go Full Out!",
+    href: "listings/4",
+    price: "$15",
+    description:
+      "Full soundproofing and no neighbors. You can play as loud as you want!",
+    imageSrc:
+      "https://github.com/ma8642/stayges/blob/main/images/music_2.jpeg?raw=true",
+  },
+  {
+    id: 5,
+    name: "Aerial Room",
+    href: "listings/5",
+    price: "$45",
+    description:
+      "Includes chrome spin/static pole, silks, and lyra hoop. Please don't wear lotion or jewelry. Please use earbuds for music.",
+    imageSrc:
+      "https://github.com/ma8642/stayges/blob/main/images/poledoctor_1.jpeg?raw=true",
+  },
+  {
+    id: 6,
+    name: "Piano Room",
+    href: "listings/6",
+    price: "$38",
+    description: "Baby grand steinway in private room.",
+    imageSrc:
+      "https://github.com/ma8642/stayges/blob/main/images/music_1.png?raw=true",
+  },
+];
 const footerNavigation = {
   company: [
     { name: "Who we are", href: "#" },
-    { name: "Sustainability", href: "#" },
     { name: "Press", href: "#" },
     { name: "Careers", href: "#" },
     { name: "Terms & Conditions", href: "#" },
@@ -269,313 +143,647 @@ const footerNavigation = {
   ],
   customerService: [
     { name: "Contact", href: "#" },
-    { name: "Shipping", href: "#" },
-    { name: "Returns", href: "#" },
-    { name: "Warranty", href: "#" },
+    { name: "Resolution Center", href: "#" },
+    { name: "Insurance", href: "#" },
     { name: "Secure Payments", href: "#" },
     { name: "FAQ", href: "#" },
-    { name: "Find a store", href: "#" },
   ],
 };
+
+function InputField({ label, type = "input", name, id, placeholder = "" }) {
+  return (
+    <div className="flex items-center mr-2">
+      <label
+        htmlFor={label}
+        className="block text-sm font-medium text-gray-700 mr-2"
+      >
+        {label}
+      </label>
+      <div className="mt-1">
+        <input
+          type={type}
+          name={name}
+          id={id}
+          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+          placeholder={placeholder}
+        />
+      </div>
+    </div>
+  );
+}
+
+function CategorySelect() {
+  return (
+    <div className="flex items-center mr-2">
+      <label htmlFor="type" className="flex items-center mr-2">
+        Category
+      </label>
+      <select
+        id="type"
+        name="type"
+        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+      >
+        <option>Dance</option>
+        <option>Music</option>
+        <option>Art</option>
+        <option>Yoga</option>
+        <option>Photography</option>
+        <option>Gym</option>
+        <option>Other</option>
+      </select>
+    </div>
+  );
+}
+
+function SearchInput() {
+  return (
+    <div className="bg-white shadow sm:rounded-lg">
+      <div className="px-4 py-5 sm:p-6">
+        <div className="flex justify-center">
+          <div className="flex items-center justify-around">
+            <CategorySelect />
+            <InputField
+              label="Location"
+              name="location"
+              id="location"
+              placeholder="Where are you booking?"
+            />
+            <InputField
+              label="Date"
+              name="date"
+              id="date"
+              type="date"
+              placeholder="When are you booking?"
+            />
+          </div>
+          <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
+            <button
+              type="button"
+              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            >
+              Find a space
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Listing({
-  title = "Sunny Yoga Room with private entrance",
-  price = "25",
-  description = "Incudes yoga ball, mat, blocks, and straps. AC/heating.",
-  rules = product.rules,
-  gallery = product.images,
-  reviews = {
-    average: 3,
-    reviews: [
-      {
-        id: "123",
-        author: "Risako M",
-        date: "May 16, 2021",
-        rating: 5,
-        title: "Can't say enough good things",
-        content: `Quiet, beautiful space within walking distance of town center. The private entrance really brings this to the next level! Can't wait to come back.`,
-      },
-    ],
-  },
-}) {
-  const [open, setOpen] = useState(false);
+export default function SearchPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
-    <div className="bg-white">
-      <header className="relative bg-white">
-        <nav
-          aria-label="Top"
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-        >
-          <div className="border-b border-gray-200">
-            <div className="h-16 flex items-center justify-between">
-              {/* Logo */}
-              <a href="#" className="flex">
-                <span className="sr-only">Workflow</span>
-                <img
-                  className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                  alt=""
-                />
-              </a>
+    <div className="bg-gray-50">
+      <div>
+        {/* Mobile menu */}
+        <Transition.Root show={mobileMenuOpen} as={Fragment}>
+          <Dialog
+            as="div"
+            className="relative z-40 lg:hidden"
+            onClose={setMobileMenuOpen}
+          >
+            <Transition.Child
+              as={Fragment}
+              enter="transition-opacity ease-linear duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="transition-opacity ease-linear duration-300"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
 
-              <div className="flex-1 flex items-center justify-end">
-                {/* Search */}
-                <a
-                  href="#"
-                  className="hidden ml-6 p-2 text-gray-400 hover:text-gray-500 lg:block"
-                >
-                  <span className="sr-only">Search</span>
-                  <SearchIcon className="w-6 h-6" aria-hidden="true" />
-                </a>
+            <div className="fixed inset-0 flex z-40">
+              <Transition.Child
+                as={Fragment}
+                enter="transition ease-in-out duration-300 transform"
+                enterFrom="-translate-x-full"
+                enterTo="translate-x-0"
+                leave="transition ease-in-out duration-300 transform"
+                leaveFrom="translate-x-0"
+                leaveTo="-translate-x-full"
+              >
+                <Dialog.Panel className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
+                  <div className="px-4 pt-5 pb-2 flex">
+                    <button
+                      type="button"
+                      className="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <span className="sr-only">Close menu</span>
+                      <XIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
+                  </div>
 
-                {/* Account */}
-                <a
-                  href="#"
-                  className="p-2 text-gray-400 hover:text-gray-500 lg:ml-4"
-                >
-                  <span className="sr-only">Account</span>
-                  <UserIcon className="w-6 h-6" aria-hidden="true" />
-                </a>
-              </div>
+                  {/* Links */}
+                  <Tab.Group as="div" className="mt-2">
+                    <div className="border-b border-gray-200">
+                      <Tab.List className="-mb-px flex px-4 space-x-8">
+                        {navigation.categories.map((category) => (
+                          <Tab
+                            key={category.name}
+                            className={({ selected }) =>
+                              classNames(
+                                selected
+                                  ? "text-indigo-600 border-indigo-600"
+                                  : "text-gray-900 border-transparent",
+                                "flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium"
+                              )
+                            }
+                          >
+                            {category.name}
+                          </Tab>
+                        ))}
+                      </Tab.List>
+                    </div>
+                  </Tab.Group>
+
+                  <div className="border-t border-gray-200 py-6 px-4 space-y-6">
+                    {navigation.pages.map((page) => (
+                      <div key={page.name} className="flow-root">
+                        <a
+                          href={page.href}
+                          className="-m-2 p-2 block font-medium text-gray-900"
+                        >
+                          {page.name}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="border-t border-gray-200 py-6 px-4 space-y-6">
+                    <div className="flow-root">
+                      <a
+                        href="#"
+                        className="-m-2 p-2 block font-medium text-gray-900"
+                      >
+                        Create an account
+                      </a>
+                    </div>
+                    <div className="flow-root">
+                      <a
+                        href="#"
+                        className="-m-2 p-2 block font-medium text-gray-900"
+                      >
+                        Sign in
+                      </a>
+                    </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
             </div>
-          </div>
-        </nav>
-      </header>
+          </Dialog>
+        </Transition.Root>
 
-      <main className="mt-8 max-w-2xl mx-auto pb-16 px-4 sm:pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div className="lg:grid lg:grid-cols-12 lg:auto-rows-min lg:gap-x-8">
-          <div className="lg:col-start-8 lg:col-span-5">
-            <div className="flex justify-between">
-              <h1 className="text-xl font-medium text-gray-900">{title}</h1>
-              <p className="text-xl font-medium text-gray-900">${price}</p>
-            </div>
-            {/* Reviews */}
-            <div className="mt-4">
-              <h2 className="sr-only">Reviews</h2>
-              <div className="flex items-center">
-                <p className="text-sm text-gray-700">
-                  {reviews.average}
-                  <span className="sr-only"> out of 5 stars</span>
-                </p>
-                <div className="ml-1 flex items-center">
-                  {[0, 1, 2, 3, 4].map((rating) => (
-                    <StarIcon
-                      key={rating}
-                      className={classNames(
-                        reviews.average > rating
-                          ? "text-yellow-400"
-                          : "text-gray-200",
-                        "h-5 w-5 flex-shrink-0"
-                      )}
-                      aria-hidden="true"
+        <header className="relative">
+          <nav aria-label="Top">
+            {/* Secondary navigation */}
+            <div className="bg-white shadow-sm">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="h-16 flex items-center justify-between">
+                  {/* Logo (lg+) */}
+                  <div className="hidden lg:flex-1 lg:flex lg:items-center">
+                    <a href="#">
+                      <span className="sr-only">Workflow</span>
+                      <img
+                        className="h-8 w-auto"
+                        src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                        alt=""
+                      />
+                    </a>
+                  </div>
+
+                  <div className="hidden h-full lg:flex">
+                    {/* Flyout menus */}
+                    <Popover.Group className="px-4 bottom-0 inset-x-0">
+                      <div className="h-full flex justify-center space-x-8">
+                        {navigation.categories.map((category) => (
+                          <Popover key={category.name} className="flex">
+                            {({ open }) => (
+                              <>
+                                <div className="relative flex">
+                                  <Popover.Button
+                                    className={classNames(
+                                      open
+                                        ? "text-indigo-600"
+                                        : "text-gray-700 hover:text-gray-800",
+                                      "relative flex items-center justify-center transition-colors ease-out duration-200 text-sm font-medium"
+                                    )}
+                                  >
+                                    {category.name}
+                                    <span
+                                      className={classNames(
+                                        open ? "bg-indigo-600" : "",
+                                        "absolute z-30 -bottom-px inset-x-0 h-0.5 transition ease-out duration-200"
+                                      )}
+                                      aria-hidden="true"
+                                    />
+                                  </Popover.Button>
+                                </div>
+
+                                <Transition
+                                  as={Fragment}
+                                  enter="transition ease-out duration-200"
+                                  enterFrom="opacity-0"
+                                  enterTo="opacity-100"
+                                  leave="transition ease-in duration-150"
+                                  leaveFrom="opacity-100"
+                                  leaveTo="opacity-0"
+                                >
+                                  <Popover.Panel className="absolute z-20 top-full inset-x-0 bg-white text-sm text-gray-500">
+                                    {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
+                                    <div
+                                      className="absolute inset-0 top-1/2 bg-white shadow"
+                                      aria-hidden="true"
+                                    />
+                                    {/* Fake border when menu is open */}
+                                    <div
+                                      className="absolute inset-0 top-0 h-px max-w-7xl mx-auto px-8"
+                                      aria-hidden="true"
+                                    >
+                                      <div
+                                        className={classNames(
+                                          open
+                                            ? "bg-gray-200"
+                                            : "bg-transparent",
+                                          "w-full h-px transition-colors ease-out duration-200"
+                                        )}
+                                      />
+                                    </div>
+                                  </Popover.Panel>
+                                </Transition>
+                              </>
+                            )}
+                          </Popover>
+                        ))}
+
+                        {navigation.pages.map((page) => (
+                          <a
+                            key={page.name}
+                            href={page.href}
+                            className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                          >
+                            {page.name}
+                          </a>
+                        ))}
+                      </div>
+                    </Popover.Group>
+                  </div>
+
+                  {/* Mobile menu(lg-) */}
+                  <div className="flex-1 flex items-center lg:hidden">
+                    <button
+                      type="button"
+                      className="-ml-2 bg-white p-2 rounded-md text-gray-400"
+                      onClick={() => setMobileMenuOpen(true)}
+                    >
+                      <span className="sr-only">Open menu</span>
+                      <MenuIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
+                  </div>
+
+                  {/* Logo (lg-) */}
+                  <a href="#" className="lg:hidden">
+                    <span className="sr-only">Workflow</span>
+                    <img
+                      src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                      alt=""
+                      className="h-8 w-auto"
                     />
-                  ))}
-                </div>
-                <div aria-hidden="true" className="ml-4 text-sm text-gray-300">
-                  ·
-                </div>
-                <div className="ml-4 flex">
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    See all {reviews.reviews.length} reviews
                   </a>
                 </div>
               </div>
             </div>
-          </div>
+          </nav>
+        </header>
+      </div>
 
-          {/* Image gallery */}
-          <div
-            id="imageGallery"
-            className="mt-8 lg:mt-0 lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3"
+      <div>
+        {/* Mobile filter dialog */}
+        <Transition.Root show={mobileFiltersOpen} as={Fragment}>
+          <Dialog
+            as="div"
+            className="relative z-40 sm:hidden"
+            onClose={setMobileFiltersOpen}
           >
-            <h2 className="sr-only">Images</h2>
+            <Transition.Child
+              as={Fragment}
+              enter="transition-opacity ease-linear duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="transition-opacity ease-linear duration-300"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
-              {gallery.map((image) => (
-                <img
-                  key={image.id}
-                  src={image.imageSrc}
-                  alt={image.imageAlt}
-                  className={classNames(
-                    image.primary
-                      ? "lg:col-span-2 lg:row-span-2"
-                      : "hidden lg:block",
-                    "rounded-lg"
-                  )}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div id="listingDetails" className="mt-8 lg:col-span-5">
-            <form>
-              <button
-                type="submit"
-                className="mt-8 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            <div className="fixed inset-0 flex z-40">
+              <Transition.Child
+                as={Fragment}
+                enter="transition ease-in-out duration-300 transform"
+                enterFrom="translate-x-full"
+                enterTo="translate-x-0"
+                leave="transition ease-in-out duration-300 transform"
+                leaveFrom="translate-x-0"
+                leaveTo="translate-x-full"
               >
-                Book
-              </button>
-            </form>
+                <Dialog.Panel className="ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-6 flex flex-col overflow-y-auto">
+                  <div className="px-4 flex items-center justify-between">
+                    <h2 className="text-lg font-medium text-gray-900">
+                      Filters
+                    </h2>
+                    <button
+                      type="button"
+                      className="-mr-2 w-10 h-10 bg-white p-2 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      onClick={() => setMobileFiltersOpen(false)}
+                    >
+                      <span className="sr-only">Close menu</span>
+                      <XIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
+                  </div>
 
-            {/* Listing details */}
-            <div id="description" className="mt-10">
-              <h2 className="text-sm font-medium text-gray-900">Description</h2>
+                  {/* Filters */}
+                  <form className="mt-4">
+                    {filters.map((section) => (
+                      <Disclosure
+                        as="div"
+                        key={section.name}
+                        className="border-t border-gray-200 px-4 py-6"
+                      >
+                        {({ open }) => (
+                          <>
+                            <h3 className="-mx-2 -my-3 flow-root">
+                              <Disclosure.Button className="px-2 py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400">
+                                <span className="font-medium text-gray-900">
+                                  {section.name}
+                                </span>
+                                <span className="ml-6 flex items-center">
+                                  <ChevronDownIcon
+                                    className={classNames(
+                                      open ? "-rotate-180" : "rotate-0",
+                                      "h-5 w-5 transform"
+                                    )}
+                                    aria-hidden="true"
+                                  />
+                                </span>
+                              </Disclosure.Button>
+                            </h3>
+                            <Disclosure.Panel className="pt-6">
+                              <div className="space-y-6">
+                                {section.options.map((option, optionIdx) => (
+                                  <div
+                                    key={option.value}
+                                    className="flex items-center"
+                                  >
+                                    <input
+                                      id={`filter-mobile-${section.id}-${optionIdx}`}
+                                      name={`${section.id}[]`}
+                                      defaultValue={option.value}
+                                      type="checkbox"
+                                      defaultChecked={option.checked}
+                                      className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                    />
+                                    <label
+                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
+                                      className="ml-3 text-sm text-gray-500"
+                                    >
+                                      {option.label}
+                                    </label>
+                                  </div>
+                                ))}
+                              </div>
+                            </Disclosure.Panel>
+                          </>
+                        )}
+                      </Disclosure>
+                    ))}
+                  </form>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </Dialog>
+        </Transition.Root>
 
-              <div
-                className="mt-4 prose prose-sm text-gray-500"
-                dangerouslySetInnerHTML={{ __html: description }}
-              />
+        <main>
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+            <div className="py-24 text-center">
+              <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
+                Stayges
+              </h1>
+              <p className="mt-4 max-w-3xl mx-auto text-base text-gray-500">
+                Book practice spaces cheaper for just 1 hour
+              </p>
+              <SearchInput />
             </div>
 
-            <div id="rules" className="mt-8 border-t border-gray-200 pt-8">
-              <h2 className="text-sm font-medium text-gray-900">Rules</h2>
-
-              <div className="mt-4 prose prose-sm text-gray-500">
-                <ul role="list">
-                  {rules.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Policies */}
-            <section aria-labelledby="policies-heading" className="mt-10">
-              <h2 id="policies-heading" className="sr-only">
-                Our Policies
+            {/* Filters */}
+            <section
+              aria-labelledby="filter-heading"
+              className="border-t border-gray-200 pt-6"
+            >
+              <h2 id="filter-heading" className="sr-only">
+                Product filters
               </h2>
 
-              <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                {policies.map((policy) => (
-                  <div
-                    key={policy.name}
-                    className="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center"
-                  >
-                    <dt>
-                      <policy.icon
-                        className="mx-auto h-6 w-6 flex-shrink-0 text-gray-400"
+              <div className="flex items-center justify-between">
+                <Menu as="div" className="relative z-10 inline-block text-left">
+                  <div>
+                    <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                      Sort
+                      <ChevronDownIcon
+                        className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
-                      <span className="mt-4 text-sm font-medium text-gray-900">
-                        {policy.name}
-                      </span>
-                    </dt>
-                    <dd className="mt-1 text-sm text-gray-500">
-                      {policy.description}
-                    </dd>
+                    </Menu.Button>
                   </div>
+
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="origin-top-left absolute left-0 z-10 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div className="py-1">
+                        {sortOptions.map((option) => (
+                          <Menu.Item key={option}>
+                            {({ active }) => (
+                              <a
+                                href={option.href}
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm font-medium text-gray-900"
+                                )}
+                              >
+                                {option.name}
+                              </a>
+                            )}
+                          </Menu.Item>
+                        ))}
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+
+                <button
+                  type="button"
+                  className="inline-block text-sm font-medium text-gray-700 hover:text-gray-900 sm:hidden"
+                  onClick={() => setMobileFiltersOpen(true)}
+                >
+                  Filters
+                </button>
+
+                <Popover.Group className="hidden sm:flex sm:items-baseline sm:space-x-8">
+                  {filters.map((section, sectionIdx) => (
+                    <Popover
+                      as="div"
+                      key={section.name}
+                      id="menu"
+                      className="relative z-10 inline-block text-left"
+                    >
+                      <div>
+                        <Popover.Button className="group inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                          <span>{section.name}</span>
+                          {sectionIdx === 0 ? (
+                            <span className="ml-1.5 rounded py-0.5 px-1.5 bg-gray-200 text-xs font-semibold text-gray-700 tabular-nums">
+                              1
+                            </span>
+                          ) : null}
+                          <ChevronDownIcon
+                            className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                            aria-hidden="true"
+                          />
+                        </Popover.Button>
+                      </div>
+
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Popover.Panel className="origin-top-right absolute right-0 mt-2 bg-white rounded-md shadow-2xl p-4 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <form className="space-y-4">
+                            {section.options.map((option, optionIdx) => (
+                              <div
+                                key={option.value}
+                                className="flex items-center"
+                              >
+                                <input
+                                  id={`filter-${section.id}-${optionIdx}`}
+                                  name={`${section.id}[]`}
+                                  defaultValue={option.value}
+                                  defaultChecked={option.checked}
+                                  type="checkbox"
+                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <label
+                                  htmlFor={`filter-${section.id}-${optionIdx}`}
+                                  className="ml-3 pr-6 text-sm font-medium text-gray-900 whitespace-nowrap"
+                                >
+                                  {option.label}
+                                </label>
+                              </div>
+                            ))}
+                          </form>
+                        </Popover.Panel>
+                      </Transition>
+                    </Popover>
+                  ))}
+                </Popover.Group>
+              </div>
+            </section>
+
+            {/* Product grid */}
+            <section aria-labelledby="products-heading" className="mt-8">
+              <h2 id="products-heading" className="sr-only">
+                Products
+              </h2>
+
+              <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+                {listings.map((product) => (
+                  <a key={product.id} href={product.href} className="group">
+                    <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
+                      <img
+                        src={product.imageSrc}
+                        alt={product.imageAlt}
+                        className="object-center object-cover group-hover:opacity-75"
+                      />
+                    </div>
+                    <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
+                      <h3>{product.name}</h3>
+                      <p>{product.price}</p>
+                    </div>
+                    <p className="mt-1 text-sm italic text-gray-500">
+                      {product.description}
+                    </p>
+                  </a>
                 ))}
-              </dl>
+              </div>
             </section>
           </div>
-        </div>
+        </main>
 
-        {/* Reviews */}
-        <section
-          id="reviews"
-          aria-labelledby="reviews-heading"
-          className="mt-16 sm:mt-24"
+        <footer
+          aria-labelledby="footer-heading"
+          className="bg-white border-t border-gray-200"
         >
-          <h2
-            id="reviews-heading"
-            className="text-lg font-medium text-gray-900"
-          >
-            Recent reviews
+          <h2 id="footer-heading" className="sr-only">
+            Footer
           </h2>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="py-20">
+              <div className="grid grid-cols-1 md:grid-cols-12 md:grid-flow-col md:gap-x-8 md:gap-y-16 md:auto-rows-min">
+                {/* Image section */}
+                <div className="col-span-1 md:col-span-2 lg:row-start-1 lg:col-start-1">
+                  <img
+                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                    alt=""
+                    className="h-8 w-auto"
+                  />
+                </div>
 
-          <div className="mt-6 border-t border-b border-gray-200 pb-10 divide-y divide-gray-200 space-y-10">
-            {reviews.reviews.map((review) => (
-              <div
-                key={review.id}
-                className="pt-10 lg:grid lg:grid-cols-12 lg:gap-x-8"
-              >
-                <div className="lg:col-start-5 lg:col-span-8 xl:col-start-4 xl:col-span-9 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:items-start">
-                  <div className="flex items-center xl:col-span-1">
-                    <div className="flex items-center">
-                      {[0, 1, 2, 3, 4].map((rating) => (
-                        <StarIcon
-                          key={rating}
-                          className={classNames(
-                            review.rating > rating
-                              ? "text-yellow-400"
-                              : "text-gray-200",
-                            "h-5 w-5 flex-shrink-0"
-                          )}
-                          aria-hidden="true"
-                        />
-                      ))}
+                {/* Sitemap sections */}
+                <div className="mt-10 col-span-6 grid grid-cols-2 gap-8 sm:grid-cols-3 md:mt-0 md:row-start-1 md:col-start-3 md:col-span-8 lg:col-start-2 lg:col-span-6">
+                  <div className="grid grid-cols-1 gap-y-12 sm:col-span-2 sm:grid-cols-2 sm:gap-x-8">
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-900">
+                        Company
+                      </h3>
+                      <ul role="list" className="mt-6 space-y-6">
+                        {footerNavigation.company.map((item) => (
+                          <li key={item.name} className="text-sm">
+                            <a
+                              href={item.href}
+                              className="text-gray-500 hover:text-gray-600"
+                            >
+                              {item.name}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <p className="ml-3 text-sm text-gray-700">
-                      {review.rating}
-                      <span className="sr-only"> out of 5 stars</span>
-                    </p>
-                  </div>
-
-                  <div className="mt-4 lg:mt-6 xl:mt-0 xl:col-span-2">
-                    <h3 className="text-sm font-medium text-gray-900">
-                      {review.title}
-                    </h3>
-
-                    <div
-                      className="mt-3 space-y-6 text-sm text-gray-500"
-                      dangerouslySetInnerHTML={{ __html: review.content }}
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-6 flex items-center text-sm lg:mt-0 lg:col-start-1 lg:col-span-4 lg:row-start-1 lg:flex-col lg:items-start xl:col-span-3">
-                  <p className="font-medium text-gray-900">{review.author}</p>
-                  <time
-                    dateTime={review.datetime}
-                    className="ml-4 border-l border-gray-200 pl-4 text-gray-500 lg:ml-0 lg:mt-2 lg:border-0 lg:pl-0"
-                  >
-                    {review.date}
-                  </time>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      </main>
-
-      <footer aria-labelledby="footer-heading">
-        <h2 id="footer-heading" className="sr-only">
-          Footer
-        </h2>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="border-t border-gray-200 py-20">
-            <div className="grid grid-cols-1 md:grid-cols-12 md:grid-flow-col md:gap-x-8 md:gap-y-16 md:auto-rows-min">
-              {/* Image section */}
-              <div className="col-span-1 md:col-span-2 lg:row-start-1 lg:col-start-1">
-                <img
-                  src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                  alt=""
-                  className="h-8 w-auto"
-                />
-              </div>
-
-              {/* Sitemap sections */}
-              <div className="mt-10 col-span-6 grid grid-cols-2 gap-8 sm:grid-cols-3 md:mt-0 md:row-start-1 md:col-start-3 md:col-span-8 lg:col-start-2 lg:col-span-6">
-                <div className="grid grid-cols-1 gap-y-12 sm:col-span-2 sm:grid-cols-2 sm:gap-x-8">
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-900">
-                      Products
-                    </h3>
                   </div>
                   <div>
                     <h3 className="text-sm font-medium text-gray-900">
-                      Company
+                      Customer Service
                     </h3>
                     <ul role="list" className="mt-6 space-y-6">
-                      {footerNavigation.company.map((item) => (
+                      {footerNavigation.customerService.map((item) => (
                         <li key={item.name} className="text-sm">
                           <a
                             href={item.href}
@@ -588,64 +796,45 @@ export default function Listing({
                     </ul>
                   </div>
                 </div>
-                <div>
+
+                {/* Newsletter section */}
+                <div className="mt-12 md:mt-0 md:row-start-2 md:col-start-3 md:col-span-8 lg:row-start-1 lg:col-start-9 lg:col-span-4">
                   <h3 className="text-sm font-medium text-gray-900">
-                    Customer Service
+                    Want to bring Stayges to your city?
                   </h3>
-                  <ul role="list" className="mt-6 space-y-6">
-                    {footerNavigation.customerService.map((item) => (
-                      <li key={item.name} className="text-sm">
-                        <a
-                          href={item.href}
-                          className="text-gray-500 hover:text-gray-600"
-                        >
-                          {item.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+                  <form className="mt-2 flex sm:max-w-md">
+                    <label htmlFor="email-address" className="sr-only">
+                      Email address
+                    </label>
+                    <input
+                      id="email-address"
+                      type="text"
+                      autoComplete="email"
+                      required
+                      placeholder="your@email.com"
+                      className="appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    />
+                    <div className="ml-4 flex-shrink-0">
+                      <button
+                        type="submit"
+                        className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      >
+                        Let's talk
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
+            </div>
 
-              {/* Newsletter section */}
-              <div className="mt-12 md:mt-0 md:row-start-2 md:col-start-3 md:col-span-8 lg:row-start-1 lg:col-start-9 lg:col-span-4">
-                <h3 className="text-sm font-medium text-gray-900">
-                  Sign up for our newsletter
-                </h3>
-                <p className="mt-6 text-sm text-gray-500">
-                  The latest deals and savings, sent to your inbox weekly.
-                </p>
-                <form className="mt-2 flex sm:max-w-md">
-                  <label htmlFor="email-address" className="sr-only">
-                    Email address
-                  </label>
-                  <input
-                    id="email-address"
-                    type="text"
-                    autoComplete="email"
-                    required
-                    className="appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                  />
-                  <div className="ml-4 flex-shrink-0">
-                    <button
-                      type="submit"
-                      className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Sign up
-                    </button>
-                  </div>
-                </form>
-              </div>
+            <div className="border-t border-gray-100 py-10 text-center">
+              <p className="text-sm text-gray-500">
+                &copy; 2022 Stayges, LLC. All rights reserved.
+              </p>
             </div>
           </div>
-
-          <div className="border-t border-gray-100 py-10 text-center">
-            <p className="text-sm text-gray-500">
-              &copy; 2021 Workflow, Inc. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }

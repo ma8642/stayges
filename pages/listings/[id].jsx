@@ -1,55 +1,200 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import {
-  CurrencyDollarIcon,
-  GlobeIcon,
   SearchIcon,
   UserIcon,
+  CheckCircleIcon,
 } from "@heroicons/react/outline";
 import { StarIcon } from "@heroicons/react/solid";
 
-const product = {
-  name: "Basic Tee",
-  price: "$35",
-  href: "#",
-  images: [
-    {
-      id: 1,
-      imageSrc:
-        "https://github.com/ma8642/stayges/blob/main/images/yoga_3.jpeg?raw=true",
-      imageAlt: "Back of women's Basic Tee in black.",
-      primary: true,
-    },
-    {
-      id: 2,
-      imageSrc:
-        "https://github.com/ma8642/stayges/blob/main/images/yoga_3.jpeg?raw=true",
-      imageAlt: "Side profile of women's Basic Tee in black.",
-      primary: false,
-    },
-    {
-      id: 3,
-      imageSrc:
-        "https://github.com/ma8642/stayges/blob/main/images/yoga_3.jpeg?raw=true",
-      imageAlt: "Front of women's Basic Tee in black.",
-      primary: false,
-    },
-  ],
-  description: `
-    <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
-    <p>Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.</p>
-  `,
-  rules: ["no smoking", "no alcohol", "no food", "no shoes", "up to 2 guests"],
-};
-const policies = [
+const listings = [
   {
-    name: "International delivery",
-    icon: GlobeIcon,
-    description: "Get your order in 2 years",
+    id: 1,
+    title: "Sunny Yoga Room with private entrance",
+    price: "25",
+    description: "Incudes yoga ball, mat, blocks, and straps. AC/heating.",
+    gallery: [
+      {
+        id: "a",
+        src: "https://github.com/ma8642/stayges/blob/main/images/yoga_3.jpeg?raw=true",
+        alt: "",
+        primary: true,
+      },
+      {
+        id: "b",
+        src: "https://github.com/ma8642/stayges/blob/main/images/yoga_3.jpeg?raw=true",
+        alt: "",
+      },
+      {
+        id: "c",
+        src: "https://github.com/ma8642/stayges/blob/main/images/yoga_3.jpeg?raw=true",
+        alt: "",
+      },
+    ],
+    rules: [
+      "no smoking",
+      "no alcohol",
+      "no food",
+      "no shoes",
+      "up to 2 guests",
+    ],
   },
   {
-    name: "Loyalty rewards",
-    icon: CurrencyDollarIcon,
-    description: "Don't look at other tees",
+    id: 2,
+    title: "Clean dance studio with surround sound",
+    price: "50",
+    description: "Good for practicing your next routine or filming a tik tok",
+    gallery: [
+      {
+        id: "a",
+        src: "https://github.com/ma8642/stayges/blob/main/images/dance_3.png?raw=true",
+        alt: "",
+        primary: true,
+      },
+      {
+        id: "b",
+        src: "https://github.com/ma8642/stayges/blob/main/images/dance_3.png?raw=true",
+        alt: "",
+      },
+      {
+        id: "c",
+        src: "https://github.com/ma8642/stayges/blob/main/images/dance_3.png?raw=true",
+        alt: "",
+      },
+    ],
+    rules: [
+      "no smoking",
+      "no alcohol",
+      "no food",
+      "no shoes",
+      "up to 2 guests",
+    ],
+  },
+  {
+    id: 3,
+    title: "Private Gym with Yoga Equipment",
+    price: "40",
+    description: "Please clean equipment before you leave.",
+    gallery: [
+      {
+        id: "a",
+        src: "https://github.com/ma8642/stayges/blob/main/images/gym_and_yoga.jpg?raw=true",
+        alt: "",
+        primary: true,
+      },
+      {
+        id: "b",
+        src: "https://github.com/ma8642/stayges/blob/main/images/gym_and_yoga.jpg?raw=true",
+        alt: "",
+      },
+      {
+        id: "c",
+        src: "https://github.com/ma8642/stayges/blob/main/images/gym_and_yoga.jpg?raw=true",
+        alt: "",
+      },
+    ],
+    rules: [
+      "no smoking",
+      "no alcohol",
+      "no food",
+      "no shoes",
+      "up to 2 guests",
+    ],
+  },
+  {
+    id: 4,
+    title: "Music Practice Room - Go Full Out!",
+    price: "15",
+    description:
+      "Full soundproofing and no neighbors. You can play as loud as you want!",
+    gallery: [
+      {
+        id: "a",
+        src: "https://github.com/ma8642/stayges/blob/main/images/music_2.jpeg?raw=true",
+        alt: "",
+        primary: true,
+      },
+      {
+        id: "b",
+        src: "https://github.com/ma8642/stayges/blob/main/images/music_2.jpeg?raw=true",
+        alt: "",
+      },
+      {
+        id: "c",
+        src: "https://github.com/ma8642/stayges/blob/main/images/music_2.jpeg?raw=true",
+        alt: "",
+      },
+    ],
+    rules: [
+      "no smoking",
+      "no alcohol",
+      "no food",
+      "no shoes",
+      "up to 2 guests",
+    ],
+  },
+  {
+    id: 5,
+    title: "Aerial Room",
+    price: "45",
+    description:
+      "Includes chrome spin/static pole, silks, and lyra hoop. Please don't wear lotion or jewelry. Please use earbuds for music.",
+    gallery: [
+      {
+        id: "a",
+        src: "https://github.com/ma8642/stayges/blob/main/images/poledoctor_1.jpeg?raw=true",
+        alt: "",
+        primary: true,
+      },
+      {
+        id: "b",
+        src: "https://github.com/ma8642/stayges/blob/main/images/poledoctor_1.jpeg?raw=true",
+        alt: "",
+      },
+      {
+        id: "c",
+        src: "https://github.com/ma8642/stayges/blob/main/images/poledoctor_1.jpeg?raw=true",
+        alt: "",
+      },
+    ],
+    rules: [
+      "no smoking",
+      "no alcohol",
+      "no food",
+      "no shoes",
+      "up to 2 guests",
+    ],
+  },
+  {
+    id: 6,
+    title: "Piano Room",
+    price: "38",
+    description: "Baby grand steinway in private room.",
+    gallery: [
+      {
+        id: "a",
+        src: "https://github.com/ma8642/stayges/blob/main/images/music_1.png?raw=true",
+        alt: "",
+        primary: true,
+      },
+      {
+        id: "b",
+        src: "https://github.com/ma8642/stayges/blob/main/images/music_1.png?raw=true",
+        alt: "",
+      },
+      {
+        id: "c",
+        src: "https://github.com/ma8642/stayges/blob/main/images/music_1.png?raw=true",
+        alt: "",
+      },
+    ],
+    rules: [
+      "no smoking",
+      "no alcohol",
+      "no food",
+      "no shoes",
+      "up to 2 guests",
+    ],
   },
 ];
 
@@ -78,8 +223,8 @@ export default function Listing({
   title = "Sunny Yoga Room with private entrance",
   price = "25",
   description = "Incudes yoga ball, mat, blocks, and straps. AC/heating.",
-  rules = product.rules,
-  gallery = product.images,
+  rules = listings[0].rules,
+  gallery = listings[0].images,
   reviews = {
     average: 3,
     reviews: [
@@ -93,9 +238,54 @@ export default function Listing({
       },
     ],
   },
+  amenities = ["Hardwood Floors", "Yoga mat", "Mirrors", "Surround sound"],
 }) {
-  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const { id } = router.query;
+  const [listingData, setListingData] = useState({});
 
+  useEffect(() => {
+    // TODO based on id, query data from the database
+    if (id) {
+      const lid = parseInt(id);
+      console.log(lid);
+      const listing = listings.find((listing) => listing.id === lid);
+      const title = listing.title;
+      const price = listing.price;
+      const description = listing.description;
+      const rules = listing.rules;
+      const gallery = listing.gallery;
+      const reviews = {
+        average: 3,
+        reviews: [
+          {
+            id: "123",
+            author: "Risako M",
+            date: "May 16, 2021",
+            rating: 5,
+            title: "Can't say enough good things",
+            content: `Quiet, beautiful space within walking distance of town center. The private entrance really brings this to the next level! Can't wait to come back.`,
+          },
+        ],
+      };
+      const amenities = [
+        "Hardwood Floors",
+        "Yoga mat",
+        "Mirrors",
+        "Surround sound",
+      ];
+      setListingData({
+        title,
+        price,
+        description,
+        rules,
+        gallery,
+        reviews,
+        amenities,
+      });
+    }
+  }, [id]);
+  console.log(listingData);
   return (
     <div className="bg-white">
       <header className="relative bg-white">
@@ -142,9 +332,13 @@ export default function Listing({
       <main className="mt-8 max-w-2xl mx-auto pb-16 px-4 sm:pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="lg:grid lg:grid-cols-12 lg:auto-rows-min lg:gap-x-8">
           <div className="lg:col-start-8 lg:col-span-5">
-            <div className="flex justify-between">
-              <h1 className="text-xl font-medium text-gray-900">{title}</h1>
-              <p className="text-xl font-medium text-gray-900">${price}</p>
+            <div className="flex justify-between ">
+              <h1 className="text-xl font-medium text-gray-900">
+                {listingData?.title}
+              </h1>
+              <p className="text-xl font-medium text-gray-900">
+                ${listingData?.price}
+              </p>
             </div>
             {/* Reviews */}
             <div className="mt-4">
@@ -176,10 +370,24 @@ export default function Listing({
                     href="#"
                     className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    See all {reviews.reviews.length} reviews
+                    See all {listingData?.reviews?.reviews.length} reviews
                   </a>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Amenities */}
+          <div className="mt-8 lg:col-start-8 lg:col-span-5">
+            <div className="mt-2">
+              <ul className="w-100 grid grid-cols-2">
+                {listingData?.amenities?.map((amenity) => (
+                  <li className="flex">
+                    <CheckCircleIcon className="text-blue-500 h-5 mr-4" />{" "}
+                    <span>{amenity}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
@@ -191,10 +399,10 @@ export default function Listing({
             <h2 className="sr-only">Images</h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
-              {gallery.map((image) => (
+              {listingData?.gallery?.map((image) => (
                 <img
                   key={image.id}
-                  src={image.imageSrc}
+                  src={image.src}
                   alt={image.imageAlt}
                   className={classNames(
                     image.primary
@@ -223,7 +431,7 @@ export default function Listing({
 
               <div
                 className="mt-4 prose prose-sm text-gray-500"
-                dangerouslySetInnerHTML={{ __html: description }}
+                dangerouslySetInnerHTML={{ __html: listingData?.description }}
               />
             </div>
 
@@ -232,41 +440,12 @@ export default function Listing({
 
               <div className="mt-4 prose prose-sm text-gray-500">
                 <ul role="list">
-                  {rules.map((item) => (
+                  {listingData?.rules?.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
               </div>
             </div>
-
-            {/* Policies */}
-            <section aria-labelledby="policies-heading" className="mt-10">
-              <h2 id="policies-heading" className="sr-only">
-                Our Policies
-              </h2>
-
-              <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                {policies.map((policy) => (
-                  <div
-                    key={policy.name}
-                    className="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center"
-                  >
-                    <dt>
-                      <policy.icon
-                        className="mx-auto h-6 w-6 flex-shrink-0 text-gray-400"
-                        aria-hidden="true"
-                      />
-                      <span className="mt-4 text-sm font-medium text-gray-900">
-                        {policy.name}
-                      </span>
-                    </dt>
-                    <dd className="mt-1 text-sm text-gray-500">
-                      {policy.description}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </section>
           </div>
         </div>
 
@@ -284,7 +463,7 @@ export default function Listing({
           </h2>
 
           <div className="mt-6 border-t border-b border-gray-200 pb-10 divide-y divide-gray-200 space-y-10">
-            {reviews.reviews.map((review) => (
+            {listingData?.reviews?.reviews.map((review) => (
               <div
                 key={review.id}
                 className="pt-10 lg:grid lg:grid-cols-12 lg:gap-x-8"

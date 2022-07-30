@@ -55,6 +55,7 @@ const filters = [
       { value: "lyra", label: "Lyra" },
       { value: "lighting", label: "Lighting" },
       { value: "piano", label: "Piano" },
+      { value: "yoga-mat", label: "Yoga Mat" },
     ],
   },
   {
