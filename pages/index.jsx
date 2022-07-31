@@ -203,6 +203,7 @@ function CategorySelect({ searchQuery, handleChange }) {
           handleChange({ ...searchQuery, category: e.target.value })
         }
       >
+        <option value={null}>Space needed for...</option>
         <option value="dance">Dance</option>
         <option value="music">Music</option>
         <option value="art">Art</option>
@@ -289,12 +290,14 @@ export default function SearchPage() {
   const [searchResults, setSearchResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState({});
 
-  console.log(searchQuery);
-
   useEffect(() => {
-    // TODO here is where we query from the api
-    setSearchResults(listings);
-  }, []);
+    if (category || location || date) {
+      // TODO here is where we query from the api
+      setSearchResults(listings);
+    }
+  }, [category, location, date]);
+
+  console.log(searchResults);
 
   return (
     <div className="bg-gray-50">
@@ -636,7 +639,7 @@ export default function SearchPage() {
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
                 Stayges
               </h1>
-              <p className="mt-4 max-w-3xl mx-auto text-base text-gray-500">
+              <p className="mt-4 max-w-3xl mx-auto text-base text-gray-500 mb-6">
                 Book practice spaces cheaper for just 1 hour
               </p>
               <SearchInput
@@ -778,30 +781,36 @@ export default function SearchPage() {
                 Products
               </h2>
 
-              <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-                {searchResults
-                  .filter((l) => {
-                    return l.category === category;
-                  })
-                  .map((product) => (
-                    <a key={product.id} href={product.href} className="group">
-                      <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
-                        <img
-                          src={product.imageSrc}
-                          alt={product.imageAlt}
-                          className="object-center object-cover group-hover:opacity-75"
-                        />
-                      </div>
-                      <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
-                        <h3>{product.name}</h3>
-                        <p>{product.price}</p>
-                      </div>
-                      <p className="mt-1 text-sm italic text-gray-500">
-                        {product.description}
-                      </p>
-                    </a>
-                  ))}
-              </div>
+              {searchResults.length > 0 ? (
+                <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+                  {searchResults
+                    .filter((l) => {
+                      return l.category === category;
+                    })
+                    .map((product) => (
+                      <a key={product.id} href={product.href} className="group">
+                        <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
+                          <img
+                            src={product.imageSrc}
+                            alt={product.imageAlt}
+                            className="object-center object-cover group-hover:opacity-75"
+                          />
+                        </div>
+                        <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
+                          <h3>{product.name}</h3>
+                          <p>{product.price}</p>
+                        </div>
+                        <p className="mt-1 text-sm italic text-gray-500">
+                          {product.description}
+                        </p>
+                      </a>
+                    ))}
+                </div>
+              ) : (
+                <div className="flex justify-center text-2xl text-gray-900 mb-16 font-extralight">
+                  The world is a stayge. Let us help you find it.
+                </div>
+              )}
             </section>
           </div>
         </main>
