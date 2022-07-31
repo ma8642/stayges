@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import {
   Dialog,
   Disclosure,
@@ -151,7 +151,15 @@ const footerNavigation = {
   ],
 };
 
-function InputField({ label, type = "input", name, id, placeholder = "" }) {
+function InputField({
+  label,
+  type = "input",
+  value,
+  name,
+  id,
+  placeholder = "",
+  handleChange,
+}) {
   return (
     <div className="flex items-center mr-2">
       <label
@@ -164,16 +172,24 @@ function InputField({ label, type = "input", name, id, placeholder = "" }) {
         <input
           type={type}
           name={name}
+          value={value}
           id={id}
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
           placeholder={placeholder}
+          onChange={handleChange}
         />
       </div>
     </div>
   );
 }
 
-function CategorySelect({ handleChange }) {
+function handleSubmit(searchQuery, setCategory, setLocation, setDate) {
+  setCategory(searchQuery?.category);
+  setLocation(searchQuery?.location);
+  setDate(searchQuery?.date);
+}
+
+function CategorySelect({ searchQuery, handleChange }) {
   return (
     <div className="flex items-center mr-2">
       <label htmlFor="sp_type" className="flex items-center mr-2">
@@ -183,7 +199,9 @@ function CategorySelect({ handleChange }) {
         id="sp_type"
         name="sp_type"
         className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) =>
+          handleChange({ ...searchQuery, category: e.target.value })
+        }
       >
         <option value="dance">Dance</option>
         <option value="music">Music</option>
@@ -198,41 +216,60 @@ function CategorySelect({ handleChange }) {
 }
 
 function SearchInput({
-  handleCategorySelect,
-  handleLocationChange,
-  handleDateChange,
+  searchQuery,
+  handleChange,
+  setCategory,
+  setLocation,
+  setDate,
 }) {
   return (
     <div className="bg-white shadow sm:rounded-lg">
       <div className="px-4 py-5 sm:p-6">
         <div className="flex justify-center">
-          <div className="flex items-center justify-around">
-            <CategorySelect handleChange={handleCategorySelect} />
-            <InputField
-              label="Location"
-              name="location"
-              id="location"
-              placeholder="Where are you booking?"
-              onChange={(e) => handleLocationChange(e.target.value)}
-            />
-            <InputField
-              label="Date"
-              name="date"
-              id="date"
-              type="date"
-              placeholder="When are you booking?"
-              onChange={(e) => handleDateChange(e.target.value)}
-            />
-          </div>
-          <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
-            <button
-              type="button"
-              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-              onSubmit={() => null}
-            >
-              Find a space
-            </button>
-          </div>
+          <form>
+            <div className="flex items-center justify-around">
+              <CategorySelect
+                searchQuery={searchQuery}
+                handleChange={handleChange}
+              />
+              <InputField
+                label="Location"
+                name="location"
+                value={searchQuery?.location}
+                id="location"
+                placeholder="Where are you booking?"
+                handleChange={(e) => {
+                  console.log(e.target.value);
+                  return handleChange({
+                    ...searchQuery,
+                    location: e.target.value,
+                  });
+                }}
+              />
+              <InputField
+                label="Date"
+                name="date"
+                value={searchQuery?.date}
+                id="date"
+                type="date"
+                placeholder="When are you booking?"
+                handleChange={(e) =>
+                  handleChange({ ...searchQuery, date: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
+              <button
+                type="button"
+                className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                onClick={() =>
+                  handleSubmit(searchQuery, setCategory, setLocation, setDate)
+                }
+              >
+                Find a space
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -249,10 +286,15 @@ export default function SearchPage() {
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState({});
 
-  console.log(category);
-  console.log(location);
-  console.log(date);
+  console.log(searchQuery);
+
+  useEffect(() => {
+    // TODO here is where we query from the api
+    setSearchResults(listings);
+  }, []);
 
   return (
     <div className="bg-gray-50">
@@ -598,9 +640,11 @@ export default function SearchPage() {
                 Book practice spaces cheaper for just 1 hour
               </p>
               <SearchInput
-                handleCategorySelect={setCategory}
-                handleLocationChange={setLocation}
-                handleDateChange={setDate}
+                searchQuery={searchQuery}
+                handleChange={setSearchQuery}
+                setCategory={setCategory}
+                setLocation={setLocation}
+                setDate={setDate}
               />
             </div>
 
@@ -735,7 +779,7 @@ export default function SearchPage() {
               </h2>
 
               <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-                {listings
+                {searchResults
                   .filter((l) => {
                     return l.category === category;
                   })
