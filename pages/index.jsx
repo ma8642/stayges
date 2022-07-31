@@ -116,10 +116,10 @@ const listings = [
   },
   {
     id: 4,
-    name: "Music Practice Room - Go Full Out!",
+    name: "Jam space for bands",
     href: "listings/4",
     category: "music",
-    price: "$15",
+    price: "$37",
     description:
       "Full soundproofing and no neighbors. You can play as loud as you want!",
     imageSrc:

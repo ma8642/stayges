@@ -246,48 +246,60 @@ export default function Listing({
   const [listingData, setListingData] = useState({});
 
   useEffect(() => {
-    axios
-      .get("http://10.0.90.195:5000/api/v1/resources/table/all")
-      .then((res) => {
-        console.log(res.data);
-      });
     if (id) {
-      const lid = parseInt(id);
-      console.log(lid);
-      const listing = listings.find((listing) => listing.id === lid);
-      const title = listing.title;
-      const price = listing.price;
-      const description = listing.description;
-      const rules = listing.rules;
-      const gallery = listing.gallery;
-      const reviews = {
-        average: 3,
-        reviews: [
-          {
-            id: "123",
-            author: "Risako M",
-            date: "May 16, 2021",
-            rating: 5,
-            title: "Can't say enough good things",
-            content: `Quiet, beautiful space within walking distance of town center. The private entrance really brings this to the next level! Can't wait to come back.`,
-          },
-        ],
-      };
-      const amenities = [
-        "Hardwood Floors",
-        "Yoga mat",
-        "Mirrors",
-        "Surround sound",
-      ];
-      setListingData({
-        title,
-        price,
-        description,
-        rules,
-        gallery,
-        reviews,
-        amenities,
-      });
+      axios
+        .get("http://10.0.90.195:5000/api/v1/resources/table/all")
+        .then((res) => {
+          console.log(res.data);
+          const lid = parseInt(id);
+          const listingsApi = res.data;
+          const listing = listingsApi.find((listing, i) => i === lid - 1);
+          const title = listing.title;
+          const price = listing.space_details.price;
+          const description = listing.space_details.description;
+          const rules = [listing.space_details.rules];
+          const gallery = [
+            {
+              id: "a",
+              src: listing.space_details.pictures,
+              alt: "",
+              primary: true,
+            },
+            {
+              id: "b",
+              src: listing.space_details.pictures,
+              alt: "",
+            },
+            {
+              id: "c",
+              src: listing.space_details.pictures,
+              alt: "",
+            },
+          ];
+          const reviews = {
+            average: 3,
+            reviews: [
+              {
+                id: "123",
+                author: "Risako M",
+                date: "May 16, 2021",
+                rating: 5,
+                title: "Can't say enough good things",
+                content: `Quiet, beautiful space within walking distance of town center. The private entrance really brings this to the next level! Can't wait to come back.`,
+              },
+            ],
+          };
+          const amenities = listing.space_details.equipment.split(",");
+          setListingData({
+            title,
+            price,
+            description,
+            rules,
+            gallery,
+            reviews,
+            amenities,
+          });
+        });
     }
   }, [id]);
   console.log(listingData);
