@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 import {
   SearchIcon,
   UserIcon,
@@ -245,7 +246,11 @@ export default function Listing({
   const [listingData, setListingData] = useState({});
 
   useEffect(() => {
-    // TODO based on id, query data from the database
+    axios
+      .get("http://10.0.90.195:5000/api/v1/resources/table/all")
+      .then((res) => {
+        console.log(res.data);
+      });
     if (id) {
       const lid = parseInt(id);
       console.log(lid);
