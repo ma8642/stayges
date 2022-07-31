@@ -237,7 +237,7 @@ function SearchInput({
                 name="location"
                 value={searchQuery?.location}
                 id="location"
-                placeholder="Where are you booking?"
+                placeholder="What is your zipcode?"
                 handleChange={(e) => {
                   console.log(e.target.value);
                   return handleChange({
