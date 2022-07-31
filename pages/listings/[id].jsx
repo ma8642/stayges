@@ -527,7 +527,7 @@ export default function Listing({
               {/* Image section */}
               <div className="col-span-1 md:col-span-2 lg:row-start-1 lg:col-start-1">
                 <img
-                  src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                  src="https://github.com/ma8642/stayges/blob/main/images/logo.png?raw=true"
                   alt=""
                   className="h-8 w-auto"
                 />
