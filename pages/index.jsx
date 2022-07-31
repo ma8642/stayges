@@ -7,12 +7,7 @@ import {
   Tab,
   Transition,
 } from "@headlessui/react";
-import {
-  MenuIcon,
-  QuestionMarkCircleIcon,
-  ShoppingBagIcon,
-  XIcon,
-} from "@heroicons/react/outline";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
 const navigation = {
@@ -80,6 +75,7 @@ const listings = [
     id: 1,
     name: "Sunny Yoga Room with private entrance",
     href: "listings/1",
+    category: "yoga",
     price: "$25",
     description: "Incudes yoga ball, mat, blocks, and straps. AC/heating.",
     imageSrc:
@@ -89,6 +85,7 @@ const listings = [
     id: 2,
     name: "Clean dance studio with surround sound",
     href: "listings/2",
+    category: "dance",
     price: "$50",
     description: "Good for practicing your next routine or filming a tik tok",
     imageSrc:
@@ -98,6 +95,7 @@ const listings = [
     id: 3,
     name: "Private Gym with Yoga Equipment",
     href: "listings/3",
+    category: "gym",
     price: "$40",
     description: "Please clean equipment before you leave.",
     imageSrc:
@@ -107,6 +105,7 @@ const listings = [
     id: 4,
     name: "Music Practice Room - Go Full Out!",
     href: "listings/4",
+    category: "music",
     price: "$15",
     description:
       "Full soundproofing and no neighbors. You can play as loud as you want!",
@@ -117,6 +116,7 @@ const listings = [
     id: 5,
     name: "Aerial Room",
     href: "listings/5",
+    category: "dance",
     price: "$45",
     description:
       "Includes chrome spin/static pole, silks, and lyra hoop. Please don't wear lotion or jewelry. Please use earbuds for music.",
@@ -127,6 +127,7 @@ const listings = [
     id: 6,
     name: "Piano Room",
     href: "listings/6",
+    category: "music",
     price: "$38",
     description: "Baby grand steinway in private room.",
     imageSrc:
@@ -172,41 +173,47 @@ function InputField({ label, type = "input", name, id, placeholder = "" }) {
   );
 }
 
-function CategorySelect() {
+function CategorySelect({ handleChange }) {
   return (
     <div className="flex items-center mr-2">
-      <label htmlFor="type" className="flex items-center mr-2">
+      <label htmlFor="sp_type" className="flex items-center mr-2">
         Category
       </label>
       <select
-        id="type"
-        name="type"
+        id="sp_type"
+        name="sp_type"
         className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+        onChange={(e) => handleChange(e.target.value)}
       >
-        <option>Dance</option>
-        <option>Music</option>
-        <option>Art</option>
-        <option>Yoga</option>
-        <option>Photography</option>
-        <option>Gym</option>
-        <option>Other</option>
+        <option value="dance">Dance</option>
+        <option value="music">Music</option>
+        <option value="art">Art</option>
+        <option value="yoga">Yoga</option>
+        <option value="photography">Photography</option>
+        <option value="gym">Gym</option>
+        <option value="other">Other</option>
       </select>
     </div>
   );
 }
 
-function SearchInput() {
+function SearchInput({
+  handleCategorySelect,
+  handleLocationChange,
+  handleDateChange,
+}) {
   return (
     <div className="bg-white shadow sm:rounded-lg">
       <div className="px-4 py-5 sm:p-6">
         <div className="flex justify-center">
           <div className="flex items-center justify-around">
-            <CategorySelect />
+            <CategorySelect handleChange={handleCategorySelect} />
             <InputField
               label="Location"
               name="location"
               id="location"
               placeholder="Where are you booking?"
+              onChange={(e) => handleLocationChange(e.target.value)}
             />
             <InputField
               label="Date"
@@ -214,12 +221,14 @@ function SearchInput() {
               id="date"
               type="date"
               placeholder="When are you booking?"
+              onChange={(e) => handleDateChange(e.target.value)}
             />
           </div>
           <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
             <button
               type="button"
               className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+              onSubmit={() => null}
             >
               Find a space
             </button>
@@ -237,6 +246,13 @@ function classNames(...classes) {
 export default function SearchPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [category, setCategory] = useState("");
+  const [location, setLocation] = useState("");
+  const [date, setDate] = useState("");
+
+  console.log(category);
+  console.log(location);
+  console.log(date);
 
   return (
     <div className="bg-gray-50">
@@ -581,7 +597,11 @@ export default function SearchPage() {
               <p className="mt-4 max-w-3xl mx-auto text-base text-gray-500">
                 Book practice spaces cheaper for just 1 hour
               </p>
-              <SearchInput />
+              <SearchInput
+                handleCategorySelect={setCategory}
+                handleLocationChange={setLocation}
+                handleDateChange={setDate}
+              />
             </div>
 
             {/* Filters */}
@@ -715,24 +735,28 @@ export default function SearchPage() {
               </h2>
 
               <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-                {listings.map((product) => (
-                  <a key={product.id} href={product.href} className="group">
-                    <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
-                      <img
-                        src={product.imageSrc}
-                        alt={product.imageAlt}
-                        className="object-center object-cover group-hover:opacity-75"
-                      />
-                    </div>
-                    <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
-                      <h3>{product.name}</h3>
-                      <p>{product.price}</p>
-                    </div>
-                    <p className="mt-1 text-sm italic text-gray-500">
-                      {product.description}
-                    </p>
-                  </a>
-                ))}
+                {listings
+                  .filter((l) => {
+                    return l.category === category;
+                  })
+                  .map((product) => (
+                    <a key={product.id} href={product.href} className="group">
+                      <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
+                        <img
+                          src={product.imageSrc}
+                          alt={product.imageAlt}
+                          className="object-center object-cover group-hover:opacity-75"
+                        />
+                      </div>
+                      <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
+                        <h3>{product.name}</h3>
+                        <p>{product.price}</p>
+                      </div>
+                      <p className="mt-1 text-sm italic text-gray-500">
+                        {product.description}
+                      </p>
+                    </a>
+                  ))}
               </div>
             </section>
           </div>
