@@ -561,7 +561,7 @@ export default function SearchPage() {
       <div>
         <main>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-            <div className="py-24 text-center">
+            <div className="py-24 text-center bg-[url('https://github.com/ma8642/stayges/blob/main/images/bgImage.jpg?raw=true')]">
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
                 Stayges
               </h1>
