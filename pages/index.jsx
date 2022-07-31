@@ -225,8 +225,8 @@ function SearchInput({
   return (
     <div className="bg-white shadow sm:rounded-lg">
       <div className="px-4 py-5 sm:p-6">
-        <div className="flex justify-center">
-          <form>
+        <form>
+          <div className="flex justify-center">
             <div className="flex items-center justify-around">
               <CategorySelect
                 searchQuery={searchQuery}
@@ -269,8 +269,8 @@ function SearchInput({
                 Find a space
               </button>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   );
