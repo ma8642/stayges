@@ -300,7 +300,7 @@ export default function Listing({
                 <span className="sr-only">Workflow</span>
                 <img
                   className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                  src="https://github.com/ma8642/stayges/blob/main/images/logo.png?raw=true"
                   alt=""
                 />
               </a>

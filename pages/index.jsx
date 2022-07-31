@@ -411,7 +411,7 @@ export default function SearchPage() {
                     <a href="#">
                       <span className="sr-only">Workflow</span>
                       <img
-                        className="logo-top h-16 w-auto"
+                        className="logo-top h-8 w-auto"
                         src="https://github.com/ma8642/stayges/blob/main/images/logo.png?raw=true"
                         alt=""
                       />
@@ -513,7 +513,7 @@ export default function SearchPage() {
                     <img
                       src="https://github.com/ma8642/stayges/blob/main/images/logo.png?raw=true"
                       alt=""
-                      className="logo-2 h-16 w-auto"
+                      className="logo-2 h-8 w-auto"
                     />
                   </a>
                 </div>
@@ -821,7 +821,7 @@ export default function SearchPage() {
                   <img
                     src="https://github.com/ma8642/stayges/blob/main/images/logo.png?raw=true"
                     alt=""
-                    className="logo-3 h-16 w-auto"
+                    className="logo-3 h-8 w-auto"
                   />
                 </div>
 
