@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import {
   Dialog,
   Disclosure,
@@ -7,12 +7,7 @@ import {
   Tab,
   Transition,
 } from "@headlessui/react";
-import {
-  MenuIcon,
-  QuestionMarkCircleIcon,
-  ShoppingBagIcon,
-  XIcon,
-} from "@heroicons/react/outline";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
 const navigation = {
@@ -35,8 +30,18 @@ const sortOptions = [
   { name: "Most Popular", href: "#" },
   { name: "Best Rating", href: "#" },
   { name: "Newest", href: "#" },
-  { name: "Price: Low to High", href: "#" },
-  { name: "Price: High to Low", href: "#" },
+  {
+    name: "Price: Low to High",
+    href: "#",
+    handleClick: (searchResults, setSearchResults) =>
+      sortPrice(true, searchResults, setSearchResults),
+  },
+  {
+    name: "Price: High to Low",
+    href: "#",
+    handleClick: (searchResults, setSearchResults) =>
+      sortPrice(false, searchResults, setSearchResults),
+  },
 ];
 const filters = [
   {
@@ -79,58 +84,70 @@ const listings = [
   {
     id: 1,
     name: "Sunny Yoga Room with private entrance",
-    href: "#",
+    href: "listings/1",
+    category: "yoga",
     price: "$25",
     description: "Incudes yoga ball, mat, blocks, and straps. AC/heating.",
     imageSrc:
       "https://github.com/ma8642/stayges/blob/main/images/yoga_3.jpeg?raw=true",
+    zipCode: "33705",
   },
   {
     id: 2,
     name: "Clean dance studio with surround sound",
-    href: "#",
+    href: "listings/2",
+    category: "dance",
     price: "$50",
     description: "Good for practicing your next routine or filming a tik tok",
     imageSrc:
       "https://github.com/ma8642/stayges/blob/main/images/dance_3.png?raw=true",
+    zipCode: "33705",
   },
   {
     id: 3,
     name: "Private Gym with Yoga Equipment",
-    href: "#",
+    href: "listings/3",
+    category: "gym",
     price: "$40",
     description: "Please clean equipment before you leave.",
     imageSrc:
       "https://github.com/ma8642/stayges/blob/main/images/gym_and_yoga.jpg?raw=true",
+    zipCode: "33601",
   },
   {
     id: 4,
-    name: "Music Practice Room - Go Full Out!",
-    href: "#",
-    price: "$15",
+    name: "Jam space for bands",
+    href: "listings/4",
+    category: "music",
+    price: "$37",
     description:
       "Full soundproofing and no neighbors. You can play as loud as you want!",
     imageSrc:
       "https://github.com/ma8642/stayges/blob/main/images/music_2.jpeg?raw=true",
+    zipCode: "33601",
   },
   {
     id: 5,
     name: "Aerial Room",
-    href: "#",
+    href: "listings/5",
+    category: "dance",
     price: "$45",
     description:
       "Includes chrome spin/static pole, silks, and lyra hoop. Please don't wear lotion or jewelry. Please use earbuds for music.",
     imageSrc:
       "https://github.com/ma8642/stayges/blob/main/images/poledoctor_1.jpeg?raw=true",
+    zipCode: "33601",
   },
   {
     id: 6,
     name: "Piano Room",
-    href: "#",
+    href: "listings/6",
+    category: "music",
     price: "$38",
     description: "Baby grand steinway in private room.",
     imageSrc:
       "https://github.com/ma8642/stayges/blob/main/images/music_1.png?raw=true",
+    zipCode: "33705",
   },
 ];
 const footerNavigation = {
@@ -150,7 +167,31 @@ const footerNavigation = {
   ],
 };
 
-function InputField({ label, type = "input", name, id, placeholder = "" }) {
+function sortPrice(lowToHigh, searchResults, setSearchResults) {
+  console.log("hi");
+  const sorted = [...searchResults];
+  if (lowToHigh) {
+    sorted.sort((listing1, listing2) => {
+      parseInt(listing1.price) > parseInt(listing2.price);
+    });
+  } else {
+    sorted.sort((listing1, listing2) => {
+      parseInt(listing1.price) <= parseInt(listing2.price);
+    });
+  }
+  console.log(sorted);
+  setSearchResults(sorted);
+}
+
+function InputField({
+  label,
+  type = "input",
+  value,
+  name,
+  id,
+  placeholder = "",
+  handleChange,
+}) {
   return (
     <div className="flex items-center mr-2">
       <label
@@ -163,68 +204,106 @@ function InputField({ label, type = "input", name, id, placeholder = "" }) {
         <input
           type={type}
           name={name}
+          value={value}
           id={id}
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
           placeholder={placeholder}
+          onChange={handleChange}
         />
       </div>
     </div>
   );
 }
 
-function CategorySelect() {
+function handleSubmit(searchQuery, setCategory, setLocation, setDate) {
+  setCategory(searchQuery?.category);
+  setLocation(searchQuery?.location);
+  setDate(searchQuery?.date);
+}
+
+function CategorySelect({ searchQuery, handleChange }) {
   return (
     <div className="flex items-center mr-2">
-      <label htmlFor="type" className="flex items-center mr-2">
+      <label htmlFor="sp_type" className="flex items-center mr-2">
         Category
       </label>
       <select
-        id="type"
-        name="type"
+        id="sp_type"
+        name="sp_type"
         className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+        onChange={(e) =>
+          handleChange({ ...searchQuery, category: e.target.value })
+        }
       >
-        <option>Dance</option>
-        <option>Music</option>
-        <option>Art</option>
-        <option>Yoga</option>
-        <option>Photography</option>
-        <option>Gym</option>
-        <option>Other</option>
+        <option value={null}>Space needed for...</option>
+        <option value="dance">Dance</option>
+        <option value="music">Music</option>
+        <option value="art">Art</option>
+        <option value="yoga">Yoga</option>
+        <option value="photography">Photography</option>
+        <option value="gym">Gym</option>
+        <option value="other">Other</option>
       </select>
     </div>
   );
 }
 
-function SearchInput() {
+function SearchInput({
+  searchQuery,
+  handleChange,
+  setCategory,
+  setLocation,
+  setDate,
+}) {
   return (
     <div className="bg-white shadow sm:rounded-lg">
       <div className="px-4 py-5 sm:p-6">
-        <div className="flex justify-center">
-          <div className="flex items-center justify-around">
-            <CategorySelect />
-            <InputField
-              label="Location"
-              name="location"
-              id="location"
-              placeholder="Where are you booking?"
-            />
-            <InputField
-              label="Date"
-              name="date"
-              id="date"
-              type="date"
-              placeholder="When are you booking?"
-            />
+        <form>
+          <div className="flex justify-center">
+            <div className="flex items-center justify-around">
+              <CategorySelect
+                searchQuery={searchQuery}
+                handleChange={handleChange}
+              />
+              <InputField
+                label="Location"
+                name="location"
+                value={searchQuery?.location}
+                id="location"
+                placeholder="What is your zipcode?"
+                handleChange={(e) => {
+                  console.log(e.target.value);
+                  return handleChange({
+                    ...searchQuery,
+                    location: e.target.value,
+                  });
+                }}
+              />
+              <InputField
+                label="Date"
+                name="date"
+                value={searchQuery?.date}
+                id="date"
+                type="date"
+                placeholder="When are you booking?"
+                handleChange={(e) =>
+                  handleChange({ ...searchQuery, date: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
+              <button
+                type="button"
+                className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                onClick={() =>
+                  handleSubmit(searchQuery, setCategory, setLocation, setDate)
+                }
+              >
+                Find a space
+              </button>
+            </div>
           </div>
-          <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
-            <button
-              type="button"
-              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-            >
-              Find a space
-            </button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   );
@@ -237,6 +316,20 @@ function classNames(...classes) {
 export default function SearchPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [category, setCategory] = useState("");
+  const [location, setLocation] = useState("");
+  const [date, setDate] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState({});
+
+  useEffect(() => {
+    if (category || location || date) {
+      // TODO here is where we query from the api
+      setSearchResults(listings);
+    }
+  }, [category, location, date]);
+
+  console.log(searchResults);
 
   return (
     <div className="bg-gray-50">
@@ -353,8 +446,8 @@ export default function SearchPage() {
                     <a href="#">
                       <span className="sr-only">Workflow</span>
                       <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                        className="logo-top h-8 w-auto"
+                        src="https://github.com/ma8642/stayges/blob/main/images/logo.png?raw=true"
                         alt=""
                       />
                     </a>
@@ -453,9 +546,9 @@ export default function SearchPage() {
                   <a href="#" className="lg:hidden">
                     <span className="sr-only">Workflow</span>
                     <img
-                      src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                      src="https://github.com/ma8642/stayges/blob/main/images/logo.png?raw=true"
                       alt=""
-                      className="h-8 w-auto"
+                      className="logo-2 h-8 w-auto"
                     />
                   </a>
                 </div>
@@ -466,274 +559,60 @@ export default function SearchPage() {
       </div>
 
       <div>
-        {/* Mobile filter dialog */}
-        <Transition.Root show={mobileFiltersOpen} as={Fragment}>
-          <Dialog
-            as="div"
-            className="relative z-40 sm:hidden"
-            onClose={setMobileFiltersOpen}
-          >
-            <Transition.Child
-              as={Fragment}
-              enter="transition-opacity ease-linear duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="transition-opacity ease-linear duration-300"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <div className="fixed inset-0 bg-black bg-opacity-25" />
-            </Transition.Child>
-
-            <div className="fixed inset-0 flex z-40">
-              <Transition.Child
-                as={Fragment}
-                enter="transition ease-in-out duration-300 transform"
-                enterFrom="translate-x-full"
-                enterTo="translate-x-0"
-                leave="transition ease-in-out duration-300 transform"
-                leaveFrom="translate-x-0"
-                leaveTo="translate-x-full"
-              >
-                <Dialog.Panel className="ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-6 flex flex-col overflow-y-auto">
-                  <div className="px-4 flex items-center justify-between">
-                    <h2 className="text-lg font-medium text-gray-900">
-                      Filters
-                    </h2>
-                    <button
-                      type="button"
-                      className="-mr-2 w-10 h-10 bg-white p-2 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      onClick={() => setMobileFiltersOpen(false)}
-                    >
-                      <span className="sr-only">Close menu</span>
-                      <XIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
-                  </div>
-
-                  {/* Filters */}
-                  <form className="mt-4">
-                    {filters.map((section) => (
-                      <Disclosure
-                        as="div"
-                        key={section.name}
-                        className="border-t border-gray-200 px-4 py-6"
-                      >
-                        {({ open }) => (
-                          <>
-                            <h3 className="-mx-2 -my-3 flow-root">
-                              <Disclosure.Button className="px-2 py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400">
-                                <span className="font-medium text-gray-900">
-                                  {section.name}
-                                </span>
-                                <span className="ml-6 flex items-center">
-                                  <ChevronDownIcon
-                                    className={classNames(
-                                      open ? "-rotate-180" : "rotate-0",
-                                      "h-5 w-5 transform"
-                                    )}
-                                    aria-hidden="true"
-                                  />
-                                </span>
-                              </Disclosure.Button>
-                            </h3>
-                            <Disclosure.Panel className="pt-6">
-                              <div className="space-y-6">
-                                {section.options.map((option, optionIdx) => (
-                                  <div
-                                    key={option.value}
-                                    className="flex items-center"
-                                  >
-                                    <input
-                                      id={`filter-mobile-${section.id}-${optionIdx}`}
-                                      name={`${section.id}[]`}
-                                      defaultValue={option.value}
-                                      type="checkbox"
-                                      defaultChecked={option.checked}
-                                      className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label
-                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                      className="ml-3 text-sm text-gray-500"
-                                    >
-                                      {option.label}
-                                    </label>
-                                  </div>
-                                ))}
-                              </div>
-                            </Disclosure.Panel>
-                          </>
-                        )}
-                      </Disclosure>
-                    ))}
-                  </form>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </Dialog>
-        </Transition.Root>
-
         <main>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="py-24 text-center">
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
                 Stayges
               </h1>
-              <p className="mt-4 max-w-3xl mx-auto text-base text-gray-500">
+              <p className="mt-4 max-w-3xl mx-auto text-base text-gray-500 mb-6">
                 Book practice spaces cheaper for just 1 hour
               </p>
-              <SearchInput />
+              <SearchInput
+                searchQuery={searchQuery}
+                handleChange={setSearchQuery}
+                setCategory={setCategory}
+                setLocation={setLocation}
+                setDate={setDate}
+              />
             </div>
 
-            {/* Filters */}
-            <section
-              aria-labelledby="filter-heading"
-              className="border-t border-gray-200 pt-6"
-            >
-              <h2 id="filter-heading" className="sr-only">
-                Product filters
-              </h2>
-
-              <div className="flex items-center justify-between">
-                <Menu as="div" className="relative z-10 inline-block text-left">
-                  <div>
-                    <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                      Sort
-                      <ChevronDownIcon
-                        className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                        aria-hidden="true"
-                      />
-                    </Menu.Button>
-                  </div>
-
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="origin-top-left absolute left-0 z-10 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <div className="py-1">
-                        {sortOptions.map((option) => (
-                          <Menu.Item key={option}>
-                            {({ active }) => (
-                              <a
-                                href={option.href}
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm font-medium text-gray-900"
-                                )}
-                              >
-                                {option.name}
-                              </a>
-                            )}
-                          </Menu.Item>
-                        ))}
-                      </div>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
-
-                <button
-                  type="button"
-                  className="inline-block text-sm font-medium text-gray-700 hover:text-gray-900 sm:hidden"
-                  onClick={() => setMobileFiltersOpen(true)}
-                >
-                  Filters
-                </button>
-
-                <Popover.Group className="hidden sm:flex sm:items-baseline sm:space-x-8">
-                  {filters.map((section, sectionIdx) => (
-                    <Popover
-                      as="div"
-                      key={section.name}
-                      id="menu"
-                      className="relative z-10 inline-block text-left"
-                    >
-                      <div>
-                        <Popover.Button className="group inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                          <span>{section.name}</span>
-                          {sectionIdx === 0 ? (
-                            <span className="ml-1.5 rounded py-0.5 px-1.5 bg-gray-200 text-xs font-semibold text-gray-700 tabular-nums">
-                              1
-                            </span>
-                          ) : null}
-                          <ChevronDownIcon
-                            className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                            aria-hidden="true"
-                          />
-                        </Popover.Button>
-                      </div>
-
-                      <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                      >
-                        <Popover.Panel className="origin-top-right absolute right-0 mt-2 bg-white rounded-md shadow-2xl p-4 ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          <form className="space-y-4">
-                            {section.options.map((option, optionIdx) => (
-                              <div
-                                key={option.value}
-                                className="flex items-center"
-                              >
-                                <input
-                                  id={`filter-${section.id}-${optionIdx}`}
-                                  name={`${section.id}[]`}
-                                  defaultValue={option.value}
-                                  defaultChecked={option.checked}
-                                  type="checkbox"
-                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor={`filter-${section.id}-${optionIdx}`}
-                                  className="ml-3 pr-6 text-sm font-medium text-gray-900 whitespace-nowrap"
-                                >
-                                  {option.label}
-                                </label>
-                              </div>
-                            ))}
-                          </form>
-                        </Popover.Panel>
-                      </Transition>
-                    </Popover>
-                  ))}
-                </Popover.Group>
-              </div>
-            </section>
-
             {/* Product grid */}
-            <section aria-labelledby="products-heading" className="mt-8">
+            <section aria-labelledby="products-heading">
               <h2 id="products-heading" className="sr-only">
                 Products
               </h2>
 
-              <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-                {listings.map((product) => (
-                  <a key={product.id} href={product.href} className="group">
-                    <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
-                      <img
-                        src={product.imageSrc}
-                        alt={product.imageAlt}
-                        className="object-center object-cover group-hover:opacity-75"
-                      />
-                    </div>
-                    <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
-                      <h3>{product.name}</h3>
-                      <p>{product.price}</p>
-                    </div>
-                    <p className="mt-1 text-sm italic text-gray-500">
-                      {product.description}
-                    </p>
-                  </a>
-                ))}
-              </div>
+              {searchResults.length > 0 ? (
+                <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+                  {searchResults
+                    .filter((l) => {
+                      return l.category === category;
+                    })
+                    .map((product) => (
+                      <a key={product.id} href={product.href} className="group">
+                        <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
+                          <img
+                            src={product.imageSrc}
+                            alt={product.imageAlt}
+                            className="object-center object-cover group-hover:opacity-75"
+                          />
+                        </div>
+                        <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
+                          <h3>{product.name}</h3>
+                          <p>{product.price}</p>
+                        </div>
+                        <p className="mt-1 text-sm italic text-gray-500">
+                          {product.description}
+                        </p>
+                      </a>
+                    ))}
+                </div>
+              ) : (
+                <div className="flex justify-center text-2xl text-gray-900 mb-16 font-extralight">
+                  The world is a stayge. Let us help you find it.
+                </div>
+              )}
             </section>
           </div>
         </main>
@@ -751,9 +630,9 @@ export default function SearchPage() {
                 {/* Image section */}
                 <div className="col-span-1 md:col-span-2 lg:row-start-1 lg:col-start-1">
                   <img
-                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                    src="https://github.com/ma8642/stayges/blob/main/images/logo.png?raw=true"
                     alt=""
-                    className="h-8 w-auto"
+                    className="logo-3 h-8 w-auto"
                   />
                 </div>
 
