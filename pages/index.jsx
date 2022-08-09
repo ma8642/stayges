@@ -99,8 +99,8 @@ function classNames(...classes) {
 
 export default function Example() {
   return (
-    <div className="relative bg-gray-50">
-      <Popover className="relative bg-white shadow">
+    <div className="relative bg-beige-100">
+      <Popover className="relative bg-beige-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -108,7 +108,7 @@ export default function Example() {
                 <span className="sr-only">Workflow</span>
                 <img
                   className="h-8 w-auto sm:h-10"
-                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                  src="https://github.com/ma8642/stayges/blob/main/images/logo.png?raw=true"
                   alt=""
                 />
               </a>
@@ -299,18 +299,15 @@ export default function Example() {
                 )}
               </Popover>
             </Popover.Group>
-            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+            <div
+              className="hidden md:flex items-center justify-end md:flex-1 lg:w-0"
+              data-testid="test-start-working-button-header"
+            >
               <a
                 href="#"
-                className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+                className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black border border-black"
               >
-                Sign in
-              </a>
-              <a
-                href="#"
-                className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-              >
-                Sign up
+                Start Working
               </a>
             </div>
           </div>
@@ -335,7 +332,7 @@ export default function Example() {
                   <div>
                     <img
                       className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                      src="https://github.com/ma8642/stayges/blob/main/images/logo.png?raw=true"
                       alt="Workflow"
                     />
                   </div>
@@ -429,20 +426,15 @@ export default function Example() {
               fugiat aliqua.
             </p>
             <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
-              <div className="rounded-md shadow">
+              <div
+                className="rounded-md shadow"
+                data-testid="test-start-working-button"
+              >
                 <a
                   href="#"
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                 >
-                  Get started
-                </a>
-              </div>
-              <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-                <a
-                  href="#"
-                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
-                >
-                  Live demo
+                  Start Working
                 </a>
               </div>
             </div>
