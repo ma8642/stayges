@@ -105,10 +105,10 @@ export default function Example() {
           <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <a href="#">
-                <span className="sr-only">Workflow</span>
+                <span className="sr-only">Stayges</span>
                 <img
-                  className="h-8 w-auto sm:h-10"
-                  src="https://github.com/ma8642/stayges/blob/main/images/logo.png?raw=true"
+                  className="h-20 w-auto"
+                  src="https://github.com/ma8642/stayges/blob/main/images/logo_with_name.png?raw=true"
                   alt=""
                 />
               </a>
@@ -332,7 +332,7 @@ export default function Example() {
                   <div>
                     <img
                       className="h-8 w-auto"
-                      src="https://github.com/ma8642/stayges/blob/main/images/logo.png?raw=true"
+                      src="https://github.com/ma8642/stayges/blob/main/images/logo_with_name.png?raw=true"
                       alt="Workflow"
                     />
                   </div>
