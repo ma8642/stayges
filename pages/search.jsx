@@ -1,14 +1,6 @@
 import { Fragment, useState, useEffect } from "react";
-import {
-  Dialog,
-  Disclosure,
-  Menu,
-  Popover,
-  Tab,
-  Transition,
-} from "@headlessui/react";
+import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { ChevronDownIcon } from "@heroicons/react/solid";
 
 const navigation = {
   categories: [

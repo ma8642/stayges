@@ -100,7 +100,7 @@ function classNames(...classes) {
 export default function Example() {
   return (
     <div className="relative bg-beige-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <a href="#">
@@ -139,7 +139,7 @@ export default function Example() {
             </a>
           </div>
           <div
-            className="hidden md:flex items-center justify-end md:flex-1 lg:w-0"
+            className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 font-homeTitle"
             data-testid="test-start-working-button-header"
           >
             <a
@@ -163,7 +163,12 @@ export default function Example() {
               <span className="block text-staygesOrange xl:inline">
                 environment
               </span>{" "}
-              <span className="block xl:inline">for your business</span>
+              <span className="block xl:inline">for productivity</span>
+              <img
+                className="w-3/6"
+                src="https://github.com/ma8642/stayges/blob/main/images/figma_homepage_effect_1.png?raw=true"
+                alt=""
+              />
             </h1>
             <p className="mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
               Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
@@ -172,7 +177,7 @@ export default function Example() {
             </p>
             <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
               <div
-                className="rounded-md shadow"
+                className="rounded-md shadow font-homeTitle"
                 data-testid="test-start-working-button"
               >
                 <a
@@ -187,8 +192,8 @@ export default function Example() {
         </div>
         <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
           <img
-            className="absolute inset-0 w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
+            className="absolute inset-0 w-full"
+            src="https://github.com/ma8642/stayges/blob/main/images/figma_homepage_image_1.png?raw=true"
             alt=""
           />
         </div>
