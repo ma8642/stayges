@@ -97,7 +97,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function Home() {
   return (
     <div className="relative bg-beige-100">
       <div className="mx-auto px-4 sm:px-6">
@@ -153,9 +153,19 @@ export default function Example() {
       </div>
 
       <main className="lg:relative">
-        <div className="mx-auto max-w-7xl w-full pt-16 pb-20 text-center lg:py-48 lg:text-left">
-          <div className="px-4 lg:w-1/2 sm:px-8 xl:pr-16">
-            <h1 className="font-homeTitle text-4xl tracking-tight font-bold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
+        <div
+          // className="mx-auto max-w-7xl w-full pt-16 pb-20 lg:py-48 lg:text-left"
+          className="flex flex-col py-10 lg:flex-row lg:justify-between lg:items-center"
+          data-testid="test-splash-container"
+        >
+          <div
+            className="px-4 py-5 lg:w-1/2 sm:px-8 xl:pr-16"
+            data-testid="test-splash-text-container"
+          >
+            <h1
+              className="font-homeTitle text-4xl tracking-tight font-bold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl"
+              data-testid="test-splash-title"
+            >
               <span className="block xl:inline">The best</span>{" "}
               <span className="block text-staygesPurple xl:inline">
                 working
@@ -170,14 +180,14 @@ export default function Example() {
                 alt=""
               />
             </h1>
-            <p className="mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
+            <p className="mt-3 max-w-md text-lg text-gray-500 sm:text-xl md:max-w-3xl">
               Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
               lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
               fugiat aliqua.
             </p>
-            <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
+            <div className="mt-10 flex justify-start">
               <div
-                className="rounded-md shadow font-homeTitle"
+                className="rounded-md font-homeTitle"
                 data-testid="test-start-working-button"
               >
                 <a
@@ -189,13 +199,13 @@ export default function Example() {
               </div>
             </div>
           </div>
-        </div>
-        <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
-          <img
-            className="absolute inset-0 w-full"
-            src="https://github.com/ma8642/stayges/blob/main/images/figma_homepage_image_1.png?raw=true"
-            alt=""
-          />
+          <div className="py-5" data-testid="test-splash-image">
+            <img
+              className="w-full"
+              src="https://github.com/ma8642/stayges/blob/main/images/figma_homepage_image_1.png?raw=true"
+              alt=""
+            />
+          </div>
         </div>
       </main>
     </div>
