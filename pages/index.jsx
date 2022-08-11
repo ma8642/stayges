@@ -99,7 +99,7 @@ function classNames(...classes) {
 
 export default function Home() {
   return (
-    <div className="relative bg-beige-100">
+    <div className="bg-beige-100">
       <div className="mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -208,6 +208,15 @@ export default function Home() {
           </div>
         </div>
       </main>
+      <p className="ml-10 text-gray-500" data-testid="test-attribution">
+        Site by{" "}
+        <a
+          href="https://github.com/ma8642/stayges"
+          className="hover:text-gray-900"
+        >
+          Marley
+        </a>
+      </p>
     </div>
   );
 }
