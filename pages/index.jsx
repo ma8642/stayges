@@ -2,7 +2,7 @@ function splashPage() {
   return (
     <div
       // className="mx-auto max-w-7xl w-full pt-16 pb-20 lg:py-48 lg:text-left"
-      className="flex flex-col py-10 lg:flex-row lg:justify-between lg:items-center"
+      className="flex flex-col py-10 lg:flex-row lg:justify-between lg:items-center bg-beige-100"
       data-testid="test-splash-container"
     >
       <div
@@ -50,6 +50,28 @@ function splashPage() {
           src="https://github.com/ma8642/stayges/blob/main/images/figma_homepage_image_1.png?raw=true"
           alt=""
         />
+      </div>
+    </div>
+  );
+}
+
+function aboutPage() {
+  return (
+    <div
+      // className="mx-auto max-w-7xl w-full pt-16 pb-20 lg:py-48 lg:text-left"
+      className="flex flex-col py-10 lg:flex-row lg:justify-between lg:items-center bg-white"
+      data-testid="test-about-container"
+    >
+      <div
+        className="px-4 py-5 lg:w-1/2 sm:px-8 xl:pr-16"
+        data-testid="test-about-reasons-container"
+      >
+        <div>Excellent Facilities</div>
+        <div>Many Choices</div>
+        <div>Cheap Prices</div>
+      </div>
+      <div className="py-5" data-testid="test-about-text-container">
+        <p>What are the advantages of our workspace?</p>
       </div>
     </div>
   );
@@ -110,7 +132,10 @@ export default function Home() {
         </div>
       </div>
 
-      <main className="lg:relative">{splashPage()}</main>
+      <main className="lg:relative">
+        {splashPage()}
+        {aboutPage()}
+      </main>
       <p className="ml-10 text-gray-500" data-testid="test-attribution">
         Site by{" "}
         <a
