@@ -10,15 +10,13 @@ function splashPage() {
         data-testid="test-splash-text-container"
       >
         <h1
-          className="font-homeTitle text-4xl tracking-tight font-bold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl"
+          className="font-homeTitle text-5xl leading-normal font-semibold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl"
           data-testid="test-splash-title"
         >
-          <span className="block xl:inline">The best</span>{" "}
-          <span className="block text-staygesPurple xl:inline">working</span>{" "}
-          <span className="block text-staygesOrange xl:inline">
-            environment
-          </span>{" "}
-          <span className="block xl:inline">for productivity</span>
+          <span className="block inline">The best</span>{" "}
+          <span className="block text-staygesPurple inline">working</span>{" "}
+          <span className="block text-staygesOrange inline">environment</span>{" "}
+          <span className="block inline">for productivity</span>
           <img
             className="w-3/6"
             src="https://github.com/ma8642/stayges/blob/main/images/figma_homepage_effect_1.png?raw=true"
@@ -85,16 +83,65 @@ function aboutPage() {
       className="flex flex-col py-10 lg:flex-row lg:justify-between lg:items-center bg-white"
       data-testid="test-about-container"
     >
+      <div className="py-5" data-testid="test-about-text-container">
+        <h1 className="text-4xl mx-12 mb-8">
+          What are the advantages of our workspace?
+        </h1>
+        <p className="mx-12">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          viverra auctor velit. Vestibulum id velit aliquam, placerat lacus et,
+          consequat leo. Quisque vel lobortis lectus.
+        </p>
+      </div>
+      <a
+        href="#"
+        className="ml-8 flex px-4 py-2 text-base font-medium text-black tracking-wide"
+      >
+        Learn More{" "}
+        <svg
+          className="ml-2"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6 18L18 6"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M8.25 6H18V15.75"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+      <img src="" alt="" />
       <div
         className="px-4 py-5 lg:w-1/2 sm:px-8 xl:pr-16"
         data-testid="test-about-reasons-container"
       >
-        <div>Excellent Facilities</div>
-        <div>Many Choices</div>
-        <div>Cheap Prices</div>
-      </div>
-      <div className="py-5" data-testid="test-about-text-container">
-        <p>What are the advantages of our workspace?</p>
+        <img
+          src="https://github.com/ma8642/stayges/blob/main/images/about_1.png?raw=true"
+          className="m-6"
+          data-testid="test_about_1"
+        />
+        <img
+          src="https://github.com/ma8642/stayges/blob/main/images/about_2.png?raw=true"
+          className="m-6"
+          data-testid="test_about_2"
+        />
+        <img
+          src="https://github.com/ma8642/stayges/blob/main/images/about_3.png?raw=true"
+          className="m-6"
+          data-testid="test_about_3"
+        />
       </div>
     </div>
   );
