@@ -39,7 +39,11 @@ function splashPage() {
               href="#"
               className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-black md:py-4 md:text-lg md:px-10 tracking-wide"
             >
-              Start Working
+              Start Working{" "}
+              <img
+                src="https://github.com/ma8642/stayges/blob/main/images/ArrowUpRight.png?raw=true"
+                alt=""
+              />
             </a>
           </div>
         </div>
@@ -126,7 +130,11 @@ export default function Home() {
               href="#"
               className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black border border-black tracking-wide"
             >
-              Start Working
+              Start Working{" "}
+              <img
+                src="https://github.com/ma8642/stayges/blob/main/images/ArrowUpRight.png?raw=true"
+                alt=""
+              />
             </a>
           </div>
         </div>
