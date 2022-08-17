@@ -122,24 +122,52 @@ function aboutPage() {
           />
         </svg>
       </a>
-      <img src="" alt="" />
+      <div className="flex justify-end mr-5">
+        <svg
+          width="27"
+          height="30"
+          viewBox="0 0 27 30"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M17.9662 27.9959C20.5443 27.2621 23.2435 26.892 25.8619 26.5529C26.4258 26.4818 26.9494 26.8785 26.9897 27.4374C27.0703 27.9967 26.6672 28.5082 26.1435 28.5792C23.6057 28.9057 20.9876 29.255 18.5303 29.9613C18.0066 30.1145 17.4424 29.7991 17.2813 29.2566C17.1202 28.7145 17.4425 28.1495 17.9662 27.9959Z"
+            fill="black"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M10.1516 17.5933C14.3008 13.2993 18.9736 9.55791 23.0422 5.14861C23.4047 4.73681 24.0493 4.71475 24.4521 5.09918C24.8549 5.48402 24.895 6.13113 24.4922 6.54293C20.4236 10.9649 15.7508 14.7185 11.6017 19.0253C11.1988 19.4273 10.5545 19.433 10.1516 19.0375C9.78909 18.6425 9.74881 17.9953 10.1516 17.5933Z"
+            fill="black"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M2.37636 1.0768C2.25551 3.53453 2.1349 5.99226 2.01405 8.45041C2.01405 9.01337 1.53042 9.44805 0.966454 9.42067C0.402493 9.39289 -0.000101089 8.91369 -0.000101089 8.35032C0.120748 5.8885 0.241361 3.42709 0.36221 0.965673C0.402493 0.402715 0.885967 -0.0291052 1.44993 0.00153479C1.97361 0.0321748 2.41664 0.514245 2.37636 1.0768Z"
+            fill="black"
+          />
+        </svg>
+      </div>
+
       <div
-        className="px-4 py-5 lg:w-1/2 sm:px-8 xl:pr-16"
+        className="flex flex-col justify-center lg:w-1/2 sm:px-8 xl:pr-16"
         data-testid="test-about-reasons-container"
       >
         <img
           src="https://github.com/ma8642/stayges/blob/main/images/about_1.png?raw=true"
-          className="m-6"
+          className="mt-6 mx-6 mb-3"
           data-testid="test_about_1"
         />
         <img
           src="https://github.com/ma8642/stayges/blob/main/images/about_2.png?raw=true"
-          className="m-6"
+          className="mx-6 my-3"
           data-testid="test_about_2"
         />
         <img
           src="https://github.com/ma8642/stayges/blob/main/images/about_3.png?raw=true"
-          className="m-6"
+          className="mx-6 my-3"
           data-testid="test_about_3"
         />
       </div>
