@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} New Listing {% endblock %}</h1>
+    <form method="post">
+        <label for="title">Property Name:</label>
+        <br>
+        <input type="text" name="title"
+               placeholder="Name of the property"
+               value="{{ request.form['title'] }}"></input>
+        <br>
+
+        <label for="space_type">Choose a space:</label>
+
+        <select name="types" id="type">
+          <option value="dance">Dance</option>
+          <option value="workout">Workout</option>
+          <option value="painting">Painting</option>
+          <option value="yoga">Yoga</option>
+        </select>
+        <br>
+
+        <label for="Price">Price:</label>
+        <br>
+        <input type="text" name="price"
+                  placeholder="price"
+                  value ="{{ request.form['price'] }}"></input>
+        <br>
+
+        <label for="location">Address:</label>
+        <br>
+        <input type="text" name="address"
+                  placeholder="address"
+                  value ="{{ request.form['address'] }}"></input>
+        <br>
+
+        <label for="sqft">Square Footage:</label>
+        <br>
+        <input type="text" name="sqft"
+                  placeholder="500"
+                  value ="{{ request.form['sqft'] }}"></input> sqft
+        <br>
+        <label for="description">Description:</label>
+        <br>
+        <input type="text" name="description"
+                  placeholder="description"
+                  value ="{{ request.form['description'] }}"></input>
+        <br>
+        <label for="noise_max">Max Noise:</label>
+        <select name="noise_max" id="noise_max">
+            <option value="1">Very quiet</option>
+            <option value="2">Quiet</option>
+            <option value="3">Medium</option>
+            <option value="4">loud</option>
+            <option value="5">Very Loud</option>
+          </select>
+        <br>
+        <label for="noise_rating">Noise rating:</label>
+        <select name="noise_rating" id="noise_rating">
+            <option value="1">Very quiet</option>
+            <option value="2">Quiet</option>
+            <option value="3">Medium</option>
+            <option value="4">loud</option>
+            <option value="5">Very Loud</option>
+          </select>
+        <br>
+        <label for="equipment">Equipment:</label>
+        <br>
+        <input type="text" name="equipment"
+                  placeholder="Equipment"
+                  value ="{{ request.form['equipment'] }}"></input>
+        <br>
+        <label for="rules">Rules:</label>
+        <br>
+        <input type="text" name="rules"
+                  placeholder="Rules"
+                  value ="{{ request.form['rules'] }}"></input>
+        <br>
+        <label for="pictures">Pictures: </label>
+        <br>
+        <input type="image" name="pictures" placeholder="Pictures"></input>
+
+        <button type="submit">Submit</button>
+    </form>
+    <!--title, space_type, price, location, sqft,
+        description, noise_max, noise_rating, equipment, rules, pictures-->
+{% endblock %}

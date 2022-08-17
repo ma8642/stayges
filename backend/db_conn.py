@@ -1,36 +1,79 @@
 #!/usr/local/bin/python3
+"""DB connection script for CRUD functions of Stayges database"""
 import json
 import collections
 import hashlib
+import os
 from secrets import choice
-from turtle import clear
 import mysql.connector
+from dotenv import load_dotenv
 
+load_dotenv()
+db_user = os.environ.get('db_user')
+db_pass = os.environ.get('db_pass')
+db_ip = os.environ.get('db_ip')
+
+"""Class for database connection"""
 def encrypt_string(hash_string):
     """encrypt a string to it's sha256sum"""
     sha_signature = hashlib.sha256(hash_string.encode()).hexdigest()
     return sha_signature
 
+def add_listing_frontend(
+    title,
+    sp_type,
+    price,
+    location,
+    sqft,
+    description,
+    noise_max,
+    noise_rate,
+    equipment,
+    rules,
+    picture
+  ):
+
+    """Builds a query to insert information
+    into the jobs database from the front end"""
+    cnx = mysql.connector.connect(
+    user=db_user, password=db_pass, host=db_ip, database='stayges'
+    )
+
+    mycursor = cnx.cursor()
+    sql = f"""
+    INSERT INTO test_data (title, space_type, price, location, sqft, description, noise_max, noise_rating, equipment, rules, pictures)
+    VALUES ('{title}', '{sp_type}', '{price}', '{location}', '{sqft}', '{description}', '{noise_max}', '{noise_rate}', '{equipment}', '{rules}', '{picture}');
+    """
+    mycursor.execute(sql)
+    cnx.commit()
+    mycursor.close()
+    cnx.close()
+
 def add_listing():
     """Builds a query to insert information
     into the jobs database"""
     cnx = mysql.connector.connect(
-        user='admin', password='stayGES', host='50.17.21.116', database='stayges')
-    title = input ("Title: ")  # Simple plain text string
-    sp_type = input("Listing type: ") # Drop down to a string
-    price = input("Price: ") # Float
-    location = input("Location: ") # plain text location name
-    sqft = input("Square Footage: ") # int
-    rating = input("Rating: ") # drop down menu 1-5
-    description = input("Description: ") # string
-    noise_max = input("Noise max (number 0-5): ") # possible hoverable graphic
-    noise_rate = input("Noise rating(number 0-5): ") # possible hoverable graphic
-    equipment = input("Equipment: ") # simple string
-    rules = input("Rules: ") # multiple word bubble things passed in as a single string
+    user=db_user, password=db_pass, host=db_ip, database='stayges')
+    title = input("Title: ")  # Simple plain text string
+    sp_type = input("Listing type: ")  # Drop down to a string
+    price = input("Price: ")  # Float
+    location = input("Location: ")  # plain text location name
+    sqft = input("Square Footage: ")  # int
+    description = input("Description: ")  # string
+    # possible hoverable graphic
+    noise_max = input("Noise max (number 0-5): ")
+    # possible hoverable graphic
+    noise_rate = input("Noise rating(number 0-5): ")
+    equipment = input("Equipment: ")  # simple list
+    # multiple word bubble things passed in as a single list
+    rules = input("Rules: ")
+    picture = input("Photo URL: ")
 
     mycursor = cnx.cursor()
-    sql = """INSERT INTO spaces (title, space_type, price, location, sqft, rating, description, noise_max, noise_rating, equipment, rules)
-    VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');""".format(title, sp_type, price, location, sqft, rating, description, noise_max, noise_rate, equipment, rules )
+    sql = f"""
+    INSERT INTO test_data (title, space_type, price, location, sqft, description, noise_max, noise_rating, equipment, rules, pictures)
+    VALUES ('{title}', '{sp_type}', '{price}', '{location}', '{sqft}', '{description}', '{noise_max}', '{noise_rate}', '{equipment}', '{rules}', '{picture}');
+    """
     mycursor.execute(sql)
     cnx.commit()
     mycursor.close()
@@ -40,9 +83,9 @@ def print_table():
     """Prints out the information from the jobs
     database"""
     cnx = mysql.connector.connect(
-        user='admin', password='stayGES', host='50.17.21.116', database='stayges')
+    user=db_user, password=db_pass, host=db_ip, database='stayges')
     mycursor = cnx.cursor()
-    sql = "select * from spaces"
+    sql = "select * from test_data"
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
     print(myresult)
@@ -53,29 +96,37 @@ def print_table():
 
 def del_listing():
     """deletes a job from the jobs database  based on id"""
-    
+
     cnx = mysql.connector.connect(
-        user='admin', password='stayGES', host='50.17.21.116', database='stayges')
+    user=db_user, password=db_pass, host=db_ip, database='stayges')
     mycursor = cnx.cursor()
     print("Which ID would you like to delete?")
     del_id = input("ID:")
-    sql = "DELETE from spaces where id = {}".format(del_id)
+    sql = f"DELETE from test_data where id = {del_id}"
     mycursor.execute(sql)
     cnx.commit()
     mycursor.close()
     cnx.close()
 
+def alter_table():
+    """ Changes the value in the database table"""
+    cnx = mysql.connector.connect(
+    user=db_user, password=db_pass, host=db_ip, database='stayges')
+    table_name = input("Table Name")
+    #mycursor = cnx.cursor()
+    sql = f"ALTER TABLE {table_name} RENAME COLUMN old_column_name TO new_column_name;"
+
 def db_to_json():
     """Prints out the information from the jobs
     database as json"""
     cnx = mysql.connector.connect(
-        user='admin', password='stayGES', host='50.17.21.116', database='stayges')
+    user=db_user, password=db_pass, host=db_ip, database='stayges')
     mycursor = cnx.cursor()
-    sql = "select * from spaces"
+    sql = "select * from test_data"
     mycursor.execute(sql)
 
     rows = mycursor.fetchall()
-    #print(rows)
+    # print(rows)
     num = 0
     rowarray_list = []
     for row in rows:
@@ -84,17 +135,18 @@ def db_to_json():
             num += 1
         else:
             break
-    
-    # list of tuples
-    # print(rowarray_list)
+
+  # list of tuples
+  # print(rowarray_list)
     property_dict = []
     descr_dict = []
     i = 0
     for row in rows:
-        alpha = {} # collections.OrderedDict()
-        beta = {} # collections.OrderedDict()
+        alpha = {}  # collections.OrderedDict()
+        beta = {}  # collections.OrderedDict()
+
         # Assign values to keys
-        alpha['title'] = row[1]
+
         beta['space_type'] = row[2]
         beta['price'] = row[3]
         beta['location'] = row[4]
@@ -105,15 +157,10 @@ def db_to_json():
         beta['noise_rating'] = row[9]
         beta['equipment'] = row[10]
         beta['rules'] = row[11]
-        descr_dict.append(beta)
-        alpha['space_details'] = descr_dict[i]
-        property_dict.append(alpha)
-        i += 1
+        beta['pictures'] = row[12]
+    descr_dict.append(beta)
+    alpha[row[1]] = descr_dict[i]
+    property_dict.append(alpha)
+    i += 1
 
     return property_dict
-
-# add_listing()
-# print_table()
-# del_listing()
-# db_to_json()
-#       
