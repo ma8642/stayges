@@ -80,7 +80,7 @@ function aboutPage() {
   return (
     <div
       // className="mx-auto max-w-7xl w-full pt-16 pb-20 lg:py-48 lg:text-left"
-      className="flex flex-col py-10 lg:flex-row lg:justify-between lg:items-center bg-white"
+      className="flex flex-col py-10 lg:flex-row-reverse lg:justify-between lg:items-center bg-white"
       data-testid="test-about-container"
     >
       <div className="py-5" data-testid="test-about-text-container">
@@ -92,36 +92,36 @@ function aboutPage() {
           viverra auctor velit. Vestibulum id velit aliquam, placerat lacus et,
           consequat leo. Quisque vel lobortis lectus.
         </p>
-      </div>
-      <a
-        href="#"
-        className="ml-8 flex px-4 py-2 text-base font-medium text-black tracking-wide"
-      >
-        Learn More{" "}
-        <svg
-          className="ml-2"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+        <a
+          href="#"
+          className="ml-8 flex px-4 py-2 text-base font-medium text-black tracking-wide"
         >
-          <path
-            d="M6 18L18 6"
-            stroke="black"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M8.25 6H18V15.75"
-            stroke="black"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </a>
+          Learn More{" "}
+          <svg
+            className="ml-2"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6 18L18 6"
+              stroke="black"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M8.25 6H18V15.75"
+              stroke="black"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
       <div className="flex justify-end mr-5">
         <svg
           width="27"
