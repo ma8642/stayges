@@ -12,6 +12,7 @@ load_dotenv()
 db_user = os.environ.get('db_user')
 db_pass = os.environ.get('db_pass')
 db_ip = os.environ.get('db_ip')
+db_data = os.environ.get('db_data')
 
 """Class for database connection"""
 def encrypt_string(hash_string):
@@ -41,7 +42,7 @@ def add_listing_frontend(
 
     mycursor = cnx.cursor()
     sql = f"""
-    INSERT INTO test_data (title, space_type, price, location, sqft, description, noise_max, noise_rating, equipment, rules, pictures)
+    INSERT INTO {db_data} (title, space_type, price, location, sqft, description, noise_max, noise_rating, equipment, rules, pictures)
     VALUES ('{title}', '{sp_type}', '{price}', '{location}', '{sqft}', '{description}', '{noise_max}', '{noise_rate}', '{equipment}', '{rules}', '{picture}');
     """
     mycursor.execute(sql)
@@ -71,7 +72,7 @@ def add_listing():
 
     mycursor = cnx.cursor()
     sql = f"""
-    INSERT INTO test_data (title, space_type, price, location, sqft, description, noise_max, noise_rating, equipment, rules, pictures)
+    INSERT INTO {db_data} (title, space_type, price, location, sqft, description, noise_max, noise_rating, equipment, rules, pictures)
     VALUES ('{title}', '{sp_type}', '{price}', '{location}', '{sqft}', '{description}', '{noise_max}', '{noise_rate}', '{equipment}', '{rules}', '{picture}');
     """
     mycursor.execute(sql)
@@ -85,7 +86,7 @@ def print_table():
     cnx = mysql.connector.connect(
     user=db_user, password=db_pass, host=db_ip, database='stayges')
     mycursor = cnx.cursor()
-    sql = "select * from test_data"
+    sql = f"select * from {db_data}"
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
     print(myresult)
@@ -102,7 +103,7 @@ def del_listing():
     mycursor = cnx.cursor()
     print("Which ID would you like to delete?")
     del_id = input("ID:")
-    sql = f"DELETE from test_data where id = {del_id}"
+    sql = f"DELETE from {db_data} where id = {del_id}"
     mycursor.execute(sql)
     cnx.commit()
     mycursor.close()
@@ -122,7 +123,7 @@ def db_to_json():
     cnx = mysql.connector.connect(
     user=db_user, password=db_pass, host=db_ip, database='stayges')
     mycursor = cnx.cursor()
-    sql = "select * from test_data"
+    sql = f"select * from {db_data}"
     mycursor.execute(sql)
 
     rows = mycursor.fetchall()
