@@ -37,14 +37,25 @@ def api():
     @app.route('/backend/new_listing/', methods=['GET', 'POST'])
     def new_login():
         if request.method == 'POST':
-            username = request.form['username']
-            password = request.form['password']
-            if not username:
-                flash('Username is required!')
-            elif not password:
-                flash('Password is required!')
+            title = request.form['title']
+            space_type = request.form['space_type']
+            price = request.form['price']
+            location = request.form['location']
+            sqft = request.form['sqft']
+            description = request.form['description']
+            noise_max = request.form['noise_max']
+            noise_rating = request.form['equipment']
+            rules = request.form['rules']
+            pictures = request.form['pictures']
+            if not title:
+                flash('Title is required!')
+            elif not space_type:
+                flash('Type is required!')
         return render_template('new_listing.html')
 
+    """title, space_type, price, location, sqft,
+        description, noise_max, noise_rating, equipment, rules, pictures
+"""
 api()
 
 #process_location("San Francisco, California")

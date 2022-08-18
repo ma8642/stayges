@@ -158,9 +158,9 @@ def db_to_json():
         beta['equipment'] = row[10]
         beta['rules'] = row[11]
         beta['pictures'] = row[12]
-    descr_dict.append(beta)
-    alpha[row[1]] = descr_dict[i]
-    property_dict.append(alpha)
-    i += 1
+        descr_dict.append(beta)
+        alpha[row[1]] = descr_dict[i]
+        property_dict.append(alpha)
+        i += 1
 
     return property_dict
